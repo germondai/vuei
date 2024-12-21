@@ -1,6 +1,6 @@
 import { readonly } from 'vue'
+import type { NotificationType } from '../../module'
 import { useState } from '#app'
-import type { NotificationType } from '~/src/module'
 
 interface ToastIcon {
   name: string

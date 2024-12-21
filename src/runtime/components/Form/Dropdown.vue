@@ -74,12 +74,12 @@
 <script lang="ts" setup generic="T">
 import { useElementBounding } from '@vueuse/core'
 import { computed, ref, useId, useTemplateRef } from 'vue'
+import type { OptionItem } from '../../../module'
 import { searchObjectByFieldValues } from '../../utils/helpers'
 import PopoverContent from '../Popover/Content.vue'
 import Popover from '../Popover/index.vue'
 import PopoverTrigger from '../Popover/Trigger.vue'
 import { Icon } from '#components'
-import type { OptionItem } from '~/src/module'
 
 const id = useId()
 
