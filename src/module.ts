@@ -1,4 +1,6 @@
 import {
+  addComponentsDir,
+  addImports,
   createResolver,
   defineNuxtModule,
   installModule,
