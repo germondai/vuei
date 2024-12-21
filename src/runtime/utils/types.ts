@@ -19,3 +19,10 @@ export interface Flare {
   color: string
   size: number
 }
+
+export interface OptionItem<T = unknown> {
+  id: string
+  name: string
+  icon?: string
+  data?: T
+}
