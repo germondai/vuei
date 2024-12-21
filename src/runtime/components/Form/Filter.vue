@@ -16,8 +16,8 @@
 </template>
 
 <script lang="ts" setup generic="T">
-import type { ButtonProps, OptionItem } from '../../utils/types'
 import Button from '../Button/index.vue'
+import type { ButtonProps, OptionItem } from '~/src/module'
 
 const { selectedTab, tabs, size } = defineProps<{
   selectedTab: OptionItem<T>

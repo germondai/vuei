@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { ButtonProps } from '../../utils/types'
 import type { NuxtLinkProps } from '#app'
 import { Icon, NuxtLink } from '#components'
+import type { ButtonProps } from '~/src/module'
 
 const {
   tag = 'button',

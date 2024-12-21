@@ -8,7 +8,7 @@
 import { templateRef } from '@vueuse/core'
 import { computed } from 'vue'
 import { useSharedMouseInElement } from '../../composables/useSharedMouseInElement'
-import type { Flare } from '../../utils/types'
+import type { Flare } from '~/src/module'
 
 const {
   tag = 'div',
