@@ -54,7 +54,7 @@ export default defineNuxtModule<ModuleOptions>({
   async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
-    nuxt.options.css.push(resolve('./runtime/assets/style.css'))
+    nuxt.options.css.push(resolve('./runtime/assets/css/tailwind.css'))
 
     await installModule('@nuxtjs/tailwindcss', {
       exposeConfig: true,
@@ -75,6 +75,8 @@ export default defineNuxtModule<ModuleOptions>({
           },
         },
       },
+      viewer: false,
+      cssPath: resolve('./runtime/assets/css/tailwind.css'),
     })
     await installModule('@nuxt/icon')
 
