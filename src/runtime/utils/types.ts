@@ -15,9 +15,13 @@ export const NotificationType: Enumize<NotificationType> = {
   SYSTEM: 'SYSTEM',
 } as const
 
-export interface Flare {
-  color: string
-  size: number
+export interface ButtonProps {
+  tag?: Element['tagName']
+  type?: 'main' | 'shadow'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  icon?: string
+  iconPosition?: 'left' | 'right'
+  selected?: boolean
 }
 
 export interface OptionItem<T = unknown> {
@@ -25,4 +29,9 @@ export interface OptionItem<T = unknown> {
   name: string
   icon?: string
   data?: T
+}
+
+export interface Flare {
+  color: string
+  size: number
 }
