@@ -3,7 +3,7 @@
   <VIButton icon="mdi:pencil">Click me!</VIButton>
   <VIDialog>
     <VIDialogTrigger>helou</VIDialogTrigger>
-    <VIDialogContent class="p-4 rounded-lg">
+    <VIDialogContent background-class="bg-red-200/80" class="p-4 rounded-lg">
       <div>Dialog content</div>
     </VIDialogContent>
   </VIDialog>
