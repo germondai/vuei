@@ -15,3 +15,7 @@ export const NotificationType: Enumize<NotificationType> = {
   SYSTEM: 'SYSTEM',
 } as const
 
+export interface Flare {
+  color: string
+  size: number
+}
