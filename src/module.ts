@@ -70,7 +70,7 @@ export default defineNuxtModule<ModuleOptions>({
           screens: options.theme?.screens,
           extend: {
             colors: {
-              primary: options.theme?.colors,
+              primary: { ...options.theme?.colors },
             },
           },
         },
