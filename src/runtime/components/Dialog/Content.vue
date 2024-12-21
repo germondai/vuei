@@ -5,7 +5,7 @@
         :is="tag"
         v-show="isOpen"
         v-if="isOpen || childIsOpen"
-        class="fixed inset-0 size-full p-4 grid place-items-center z-[999]"
+        class="fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]"
         :class="backgroundClass"
       >
         <div ref="content" v-bind="$attrs" class="overflow-y-auto max-h-full">
