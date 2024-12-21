@@ -75,5 +75,15 @@ export default defineNuxtModule<ModuleOptions>({
       },
     })
     await installModule('@nuxt/icon')
+
+    addImports({
+      name: 'useToast',
+      from: resolve('./runtime/composables/useToast'),
+    })
+
+    await addComponentsDir({
+      prefix: options.prefix,
+      path: resolve('./runtime/components'),
+    })
   },
 })

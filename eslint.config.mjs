@@ -10,6 +10,7 @@ export default createConfigForNuxt({
   },
 }).append({
   rules: {
+    'vue/multi-word-component-names': 'off',
     'vue/no-v-html': 'off',
     'vue/html-self-closing': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
