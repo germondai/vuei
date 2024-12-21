@@ -11,6 +11,7 @@ type ColorShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 
 export interface ModuleOptions {
   prefix?: string
+  css?: boolean
   theme?: {
     screens?: Record<Screen, string>
     colors?: Record<ColorShade, string>
@@ -24,6 +25,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   defaults: {
     prefix: 'VI',
+    css: true,
     theme: {
       screens: {
         '3xs': '320px',
@@ -54,7 +56,8 @@ export default defineNuxtModule<ModuleOptions>({
   async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
-    nuxt.options.css.push(resolve('./runtime/assets/style.css'))
+    if (options.css)
+      nuxt.options.css.push(resolve('./runtime/assets/style.css'))
 
     await installModule('@nuxtjs/tailwindcss', {
       exposeConfig: true,
