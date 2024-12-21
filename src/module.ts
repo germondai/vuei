@@ -1,19 +1,79 @@
-import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import {
+  createResolver,
+  defineNuxtModule,
+  installModule,
+} from '@nuxt/kit'
 
-// Module options TypeScript interface definition
-export interface ModuleOptions {}
+type Screen = '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+type ColorShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
+
+export interface ModuleOptions {
+  prefix?: string
+  theme?: {
+    screens?: Record<Screen, string>
+    colors?: Record<ColorShade, string>
+  }
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule',
+    name: '@vuei/nuxt',
+    configKey: 'vuei',
   },
-  // Default configuration options of the Nuxt module
-  defaults: {},
-  setup(_options, _nuxt) {
-    const resolver = createResolver(import.meta.url)
+  defaults: {
+    prefix: 'VI',
+    theme: {
+      screens: {
+        '3xs': '320px',
+        '2xs': '425px',
+        xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1440px',
+        '3xl': '1920px',
+      },
+      colors: {
+        50: 'var(--color-primary-50)',
+        100: 'var(--color-primary-100)',
+        200: 'var(--color-primary-200)',
+        300: 'var(--color-primary-300)',
+        400: 'var(--color-primary-400)',
+        500: 'var(--color-primary-500)',
+        600: 'var(--color-primary-600)',
+        700: 'var(--color-primary-700)',
+        800: 'var(--color-primary-800)',
+        900: 'var(--color-primary-900)',
+        950: 'var(--color-primary-950)',
+      },
+    },
+  },
+  async setup(options, nuxt) {
+    const { resolve } = createResolver(import.meta.url)
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve('./runtime/plugin'))
+    nuxt.options.css.push(resolve('./runtime/assets/style.css'))
+
+    await installModule('@nuxtjs/tailwindcss', {
+      exposeConfig: true,
+      config: {
+        darkMode: 'class',
+        content: {
+          files: [
+            resolve('./runtime/components/**/*.{vue,mjs,ts}'),
+            resolve('./runtime/*.{mjs,js,ts}'),
+          ],
+        },
+        theme: {
+          screens: options.theme?.screens,
+          extend: {
+            colors: {
+              primary: options.theme?.colors,
+            },
+          },
+        },
+      },
+    })
+    await installModule('@nuxt/icon')
   },
 })

@@ -29,7 +29,9 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.14.1592"
+    "@nuxt/icon": "^1.10.3",
+    "@nuxt/kit": "^3.14.1592",
+    "@vueuse/core": "^12.0.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.6.4",
@@ -37,6 +39,7 @@
     "@nuxt/module-builder": "^0.8.4",
     "@nuxt/schema": "^3.14.1592",
     "@nuxt/test-utils": "^3.15.1",
+    "@nuxtjs/tailwindcss": "^6.12.2",
     "@types/node": "latest",
     "changelogen": "^0.5.7",
     "eslint": "^9.17.0",
@@ -44,6 +47,7 @@
     "prettier": "^3.4.2",
     "typescript": "~5.6.3",
     "vitest": "^2.1.8",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "^2.1.10",
+    "yup": "^1.6.1"
   }
 }
