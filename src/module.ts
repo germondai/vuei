@@ -5,13 +5,14 @@ import {
   defineNuxtModule,
   installModule,
 } from '@nuxt/kit'
+import { defu } from 'defu'
 
 export interface ModuleOptions {
   prefix?: string
   css?: boolean
   theme?: {
-    screens?: Record<Screen, string>
-    colors?: Record<ColorShade, string>
+    screens?: Partial<Record<Screen, string>>
+    colors?: Record<string, Partial<Record<ColorShade, string>>>
   }
 }
 
@@ -36,17 +37,19 @@ export default defineNuxtModule<ModuleOptions>({
         '3xl': '1920px',
       },
       colors: {
-        50: 'var(--color-primary-50)',
-        100: 'var(--color-primary-100)',
-        200: 'var(--color-primary-200)',
-        300: 'var(--color-primary-300)',
-        400: 'var(--color-primary-400)',
-        500: 'var(--color-primary-500)',
-        600: 'var(--color-primary-600)',
-        700: 'var(--color-primary-700)',
-        800: 'var(--color-primary-800)',
-        900: 'var(--color-primary-900)',
-        950: 'var(--color-primary-950)',
+        primary: {
+          50: 'rgb(var(--color-primary-50))',
+          100: 'rgb(var(--color-primary-100))',
+          200: 'rgb(var(--color-primary-200))',
+          300: 'rgb(var(--color-primary-300))',
+          400: 'rgb(var(--color-primary-400))',
+          500: 'rgb(var(--color-primary-500))',
+          600: 'rgb(var(--color-primary-600))',
+          700: 'rgb(var(--color-primary-700))',
+          800: 'rgb(var(--color-primary-800))',
+          900: 'rgb(var(--color-primary-900))',
+          950: 'rgb(var(--color-primary-950))',
+        },
       },
     },
   },
@@ -58,27 +61,31 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.options.css.push(resolve('./runtime/assets/style.css'))
     }
 
-    await installModule('@nuxtjs/tailwindcss', {
-      exposeConfig: true,
-      config: {
-        darkMode: 'class',
-        content: {
-          files: [
-            resolve('./runtime/components/**/*.{vue,mjs,ts}'),
-            resolve('./runtime/*.{mjs,js,ts}'),
-          ],
-        },
-        theme: {
-          screens: options.theme?.screens,
-          extend: {
-            colors: {
-              primary: { ...options.theme?.colors },
+    await installModule(
+      '@nuxtjs/tailwindcss',
+      defu(
+        {
+          exposeConfig: true,
+          viewer: false,
+          config: {
+            darkMode: 'class' as const,
+            content: {
+              files: [
+                resolve('./runtime/components/**/*.{vue,mjs,ts}'),
+                resolve('./runtime/*.{mjs,js,ts}'),
+              ],
+            },
+            theme: {
+              screens: options.theme?.screens,
+              extend: {
+                colors: options.theme?.colors,
+              },
             },
           },
         },
-      },
-      viewer: false,
-    })
+        nuxt.options.tailwindcss,
+      ),
+    )
     await installModule('@nuxt/icon')
 
     addImports({

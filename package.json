@@ -1,6 +1,6 @@
 {
   "name": "@vuei/nuxt",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Innovative Vue UI Library",
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
   "dependencies": {
     "@nuxt/icon": "^1.10.3",
     "@nuxt/kit": "^3.14.1592",
-    "@vueuse/core": "^12.0.0"
+    "@vueuse/core": "^12.0.0",
+    "defu": "^6.1.4"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.6.4",
