@@ -4,7 +4,11 @@
     :style="{ '--ruler-color': rulerColor, '--ruler-cross-color': crossColor }"
   >
     <div class="rx-bef" />
-    <FlareItem v-bind="rulerFlareAttrs" class="rx-mid" />
+    <component
+      :is="flare ? FlareItem : 'div'"
+      v-bind="rulerFlareAttrs"
+      class="rx-mid"
+    />
     <div class="rx-aft" />
   </div>
 </template>
@@ -14,9 +18,11 @@ import { rulerFlareAttrs } from '../../utils/data'
 import FlareItem from '../Flare/Item.vue'
 
 const {
+  flare,
   rulerColor = 'rgb(var(--color-primary-800))',
   crossColor = 'rgb(var(--color-primary-700))',
 } = defineProps<{
+  flare?: boolean
   rulerColor?: HTMLElement['style']['backgroundColor']
   crossColor?: HTMLElement['style']['backgroundColor']
 }>()

@@ -1,6 +1,7 @@
 <template>
   <div class="ruler-y" :style="{ '--ruler-color': color }">
-    <FlareItem
+    <component
+      :is="flare ? FlareItem : 'div'"
       v-for="key in ['ry-l', 'ry-r']"
       v-show="
         (left && key === 'ry-l') ||
@@ -19,10 +20,12 @@ import { rulerFlareAttrs } from '../../utils/data'
 import FlareItem from '../Flare/Item.vue'
 
 const {
+  flare,
   left = false,
   right = false,
   color = 'rgb(var(--color-primary-800))',
 } = defineProps<{
+  flare?: boolean
   left?: boolean
   right?: boolean
   color?: HTMLElement['style']['backgroundColor']
