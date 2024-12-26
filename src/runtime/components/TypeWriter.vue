@@ -2,7 +2,7 @@
   <span>
     <span :class="writerClass" v-html="typeValue" />
     <span
-      class="inline-block w-1 ml-1 bg-white animate-[cursorBlink_1s_infinite]"
+      class="inline-block w-1 ml-1 bg-primary-50 animate-[cursorBlink_1s_infinite]"
       :class="{ 'animate-none': typeStatus }"
       >&nbsp;</span
     >

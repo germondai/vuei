@@ -4,9 +4,9 @@
     v-bind="linkProps"
     class="w-fit flex items-center gap-2 border-2 shadow-lg text-center truncate transition-all"
     :class="{
-      'bg-gray-200/20': selected,
-      'bg-gray-200/10 hover:bg-gray-200/30': type === 'main',
-      'bg-gray-200/5 border-gray-200/20 hover:bg-gray-200/10':
+      'bg-primary-900/20': selected,
+      'bg-primary-900/10 hover:bg-primary-900/30': type === 'main',
+      'bg-primary-900/5 border-primary-900/20 hover:bg-primary-900/10':
         type === 'shadow',
       'border-transparent': type !== 'shadow',
       'px-2 py-1 rounded-md text-sm': size === 'sm',

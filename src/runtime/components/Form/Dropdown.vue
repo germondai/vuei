@@ -2,25 +2,21 @@
   <Popover v-model:is-open="isOpen">
     <PopoverTrigger
       ref="trigger"
-      class="relative w-full pl-3 pr-10 rounded-lg bg-primary-950 hover:bg-primary-800 transition-colors text-left text-primary-200 cursor-pointer shdw"
+      class="relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors text-left cursor-pointer shdw"
       :style
     >
       <span class="flex gap-4 items-center truncate">
-        <Icon
-          v-if="selected.icon"
-          :name="selected.icon"
-          class="size-6 text-primary-300"
-        />
+        <Icon v-if="selected.icon" :name="selected.icon" class="size-6" />
         {{ selected.name }}
       </span>
       <span
         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
       >
-        <Icon name="ph:caret-up-down-fill" class="size-6 text-primary-400" />
+        <Icon name="ph:caret-up-down-fill" class="size-6" />
       </span>
     </PopoverTrigger>
     <PopoverContent
-      class="rounded-lg bg-primary-900 text-primary-200 shdw overflow-hidden"
+      class="rounded-lg bg-primary-900 shdw overflow-hidden"
       :style="{ width: `${triggerWidth}px` }"
     >
       <div
@@ -28,7 +24,7 @@
         class="relative flex items-center border-b-[1px] border-primary-800"
       >
         <label :for="id" class="absolute px-2 flex items-center cursor-pointer">
-          <Icon name="mdi:magnify" class="size-6 text-primary-500" />
+          <Icon name="mdi:magnify" class="size-6" />
         </label>
         <input
           :id="id"
@@ -48,19 +44,13 @@
           v-for="opt in filteredOptions"
           :key="opt.id"
           :class="[
-            'cursor-pointer flex gap-4 items-center relative select-none px-4',
-            isActive(opt)
-              ? 'bg-primary-700 text-primary-200'
-              : 'hover:bg-primary-800 text-primary-300',
+            'cursor-pointer flex gap-4 items-center relative select-none px-4 transition-colors',
+            isActive(opt) ? 'bg-primary-700 ' : 'hover:bg-primary-800 ',
           ]"
           :style
           @click="selectOption(opt)"
         >
-          <Icon
-            v-if="opt.icon"
-            :name="opt.icon"
-            class="size-6 text-primary-500"
-          />
+          <Icon v-if="opt.icon" :name="opt.icon" class="size-6" />
           {{ opt.name }}
         </div>
         <div v-if="!filteredOptions.length" class="p-4 opacity-60">

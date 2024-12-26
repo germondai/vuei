@@ -12,8 +12,8 @@ import { useSharedMouseInElement } from '../../composables/useSharedMouseInEleme
 
 const {
   tag = 'div',
-  before = { color: '#ffffffaa', size: 600 },
-  after = { color: '#ffffff11', size: 400 },
+  before = { color: 'rgb(var(--color-primary-50) / 0.3)', size: 600 },
+  after = { color: 'rgb(var(--color-primary-50) / 0.1)', size: 400 },
 } = defineProps<{
   tag?: HTMLElement['tagName']
   before?: Flare
@@ -23,14 +23,24 @@ const {
 const target = templateRef<HTMLElement>('target')
 const { elementX, elementY } = useSharedMouseInElement({ target })
 
-const computedStyle = computed(() => ({
-  '--x': `${Math.round(elementX.value)}px`,
-  '--y': `${Math.round(elementY.value)}px`,
-  '--fbc': before.color,
-  '--fbs': `${before.size}px`,
-  '--fac': after.color,
-  '--fas': `${after.size}px`,
-}))
+const computedStyle = computed(() => {
+  const b = before && {
+    '--fbc': before ? before.color : '',
+    '--fbs': `${before.size}px`,
+  }
+
+  const a = after && {
+    '--fac': after.color,
+    '--fas': `${after.size}px`,
+  }
+
+  return {
+    '--x': `${Math.round(elementX.value)}px`,
+    '--y': `${Math.round(elementY.value)}px`,
+    ...b,
+    ...a,
+  }
+})
 </script>
 
 <style scoped>

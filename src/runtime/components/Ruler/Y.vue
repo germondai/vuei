@@ -21,7 +21,7 @@ import FlareItem from '../Flare/Item.vue'
 const {
   left = false,
   right = false,
-  color = '#222',
+  color = 'rgb(var(--color-primary-800))',
 } = defineProps<{
   left?: boolean
   right?: boolean
@@ -38,10 +38,10 @@ const {
     @apply content-[''] absolute -top-[12.5%] w-px h-[125%] pointer-events-none -z-50;
     background: linear-gradient(
       to bottom,
-      rgba(34, 34, 34, 0) 0%,
+      transparent 0%,
       var(--ruler-color) 10%,
       var(--ruler-color) 90%,
-      rgba(34, 34, 34, 0) 100%
+      transparent 100%
     );
   }
 

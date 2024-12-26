@@ -13,7 +13,10 @@
 import { rulerFlareAttrs } from '../../utils/data'
 import FlareItem from '../Flare/Item.vue'
 
-const { rulerColor = '#222', crossColor = '#333' } = defineProps<{
+const {
+  rulerColor = 'rgb(var(--color-primary-800))',
+  crossColor = 'rgb(var(--color-primary-700))',
+} = defineProps<{
   rulerColor?: HTMLElement['style']['backgroundColor']
   crossColor?: HTMLElement['style']['backgroundColor']
 }>()
@@ -27,10 +30,10 @@ const { rulerColor = '#222', crossColor = '#333' } = defineProps<{
     @apply absolute -left-[10%] w-[120%] h-px z-10;
     background: linear-gradient(
       to right,
-      rgba(34, 34, 34, 0) 0%,
+      transparent 0%,
       var(--ruler-color) 10%,
       var(--ruler-color) 90%,
-      rgba(34, 34, 34, 0) 100%
+      transparent 100%
     );
   }
 

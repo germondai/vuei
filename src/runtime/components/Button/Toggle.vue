@@ -1,11 +1,11 @@
 <template>
   <button
     class="relative flex items-center w-12 h-6 p-0.5 rounded-full shdw transition-colors"
-    :class="{ 'bg-red-200/20': value }"
+    :class="{ 'bg-primary-900': value }"
     @click="value = !value"
   >
     <span
-      class="size-5 rounded-full bg-white transition-transform pointer-events-none"
+      class="size-5 rounded-full bg-primary-50 transition-transform pointer-events-none"
       :class="{ 'translate-x-6': value }"
     />
   </button>

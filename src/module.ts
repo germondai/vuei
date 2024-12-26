@@ -157,7 +157,9 @@ export interface OptionItem<T = unknown> {
   data?: T
 }
 
-export interface Flare {
+interface FlareOpts {
   color?: string
   size?: number
 }
+
+export type Flare = FlareOpts | false

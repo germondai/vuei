@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full max-w-sm p-2 flex items-center gap-2 rounded-lg bg-gray-200/5 backdrop-blur pointer-events-auto overflow-hidden shdw"
+    class="relative w-full max-w-sm p-2 flex items-center gap-2 rounded-lg bg-primary-900/5 backdrop-blur pointer-events-auto overflow-hidden shdw"
   >
     <Icon
       v-if="toast.icon"
@@ -18,7 +18,7 @@
       </p>
     </div>
     <button
-      class="absolute top-2 right-2 p-0.5 flex items-center justify-center rounded-lg shdw bg-gray-200/10 hover:bg-gray-200/20 transition-colors"
+      class="absolute top-2 right-2 p-0.5 flex items-center justify-center rounded-lg shdw bg-primary-900/10 hover:bg-primary-900/20 transition-colors"
       @click="emit('remove', toast.id)"
     >
       <Icon name="mdi:close" class="size-4 sm:size-6" />

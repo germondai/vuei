@@ -3,11 +3,11 @@
     <PopoverTrigger
       class="h-6 flex items-center justify-between gap-0.5 opacity-60 hover:opacity-80 transition-opacity"
     >
-      <span v-for="key in 3" :key class="size-1 bg-white rounded-full" />
+      <span v-for="key in 3" :key class="size-1 bg-primary-50 rounded-full" />
     </PopoverTrigger>
     <PopoverContent
       :is="'ul'"
-      class="w-48 p-2 rounded-lg bg-gray-200/5 backdrop-blur shdw"
+      class="w-48 p-2 rounded-lg bg-primary-900/5 backdrop-blur shdw"
     >
       <slot />
     </PopoverContent>
