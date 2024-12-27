@@ -6,7 +6,7 @@ import {
   installModule,
 } from '@nuxt/kit'
 import { defu } from 'defu'
-import type { Component, PropType } from 'vue'
+import type { Component } from 'vue'
 
 export interface ModuleOptions {
   prefix?: string
@@ -294,6 +294,6 @@ export type HTMLTag =
   | ({} & HTMLElement['tagName'])
 
 export interface PrimitiveProps {
-  as?: PropType<HTMLTag | Component>
+  as?: HTMLTag | Component
   asChild?: boolean
 }
