@@ -55,6 +55,14 @@
       icon: { name: 'mdi:earth', color: 'blue' },
     }"
   />
+  <VIContainer>
+    <VIButton variant="primary">Coze</VIButton>
+    <VIButton variant="secondary">Coze</VIButton>
+    <VIButton variant="destructive">Coze</VIButton>
+    <VIButton variant="outline">Coze</VIButton>
+    <VIButton variant="ghost">Coze</VIButton>
+    <VIButton variant="link">Coze</VIButton>
+  </VIContainer>
   <VICountUp :number="300" />
   <VITypeWriter :type-array="['Is this...', 'working?']" />
   <VIRulerX />
@@ -79,7 +87,7 @@
           <VICardFooter class="justify-end">
             <VIDialog>
               <VIDialogTrigger>
-                <VIButton class="shdw">Click me!</VIButton>
+                <VIButton>Click me!</VIButton>
               </VIDialogTrigger>
               <VIDialogContent>
                 <VICard class="bg-primary-950/90">
@@ -91,12 +99,10 @@
                   </VICardHeader>
                   <VICardFooter class="justify-between">
                     <VIDialogTrigger>
-                      <VIButton type="shadow" class="shdw">Cancel</VIButton>
+                      <VIButton variant="outline">Cancel</VIButton>
                     </VIDialogTrigger>
                     <VIDialogTrigger>
-                      <VIButton class="bg-red-500 hover:bg-red-600 shdw">
-                        Submit
-                      </VIButton>
+                      <VIButton> Submit </VIButton>
                     </VIDialogTrigger>
                   </VICardFooter>
                 </VICard>
@@ -115,16 +121,14 @@ import type { OptionItem } from '../src/module'
 
 const { addToast } = useToast()
 
-addToast({
-  title: 'Hello',
-  message: 'World',
-  icon: { name: 'mdi:earth', color: 'blue' },
-})
-
 const options: OptionItem[] = [
   {
     id: '1',
     name: 'coze',
+  },
+  {
+    id: '2',
+    name: 'aha',
   },
 ]
 
@@ -132,44 +136,17 @@ const selectedItem = ref<OptionItem | null>(null)
 
 const toggle = ref<boolean>(false)
 
+onMounted(() =>
+  addToast({
+    title: 'Hello',
+    message: 'World',
+    icon: { name: 'mdi:earth', color: 'blue' },
+  }),
+)
+
 watchPostEffect(() => {
   const html = window.document.querySelector('html')
   if (!html) return
   html.classList.value = toggle.value ? 'light' : 'dark'
 })
 </script>
-
-<style>
-:root,
-html.dark:root {
-  --color-primary-50: 252 253 255;
-  --color-primary-100: 239 242 245;
-  --color-primary-200: 218 223 230;
-  --color-primary-300: 186 192 203;
-  --color-primary-400: 146 153 166;
-  --color-primary-500: 102 112 126;
-  --color-primary-600: 72 82 97;
-  --color-primary-700: 54 61 73;
-  --color-primary-800: 35 39 47;
-  --color-primary-900: 20 22 27;
-  --color-primary-950: 15 16 20;
-}
-
-html.light:root {
-  --color-primary-50: 15 16 20;
-  --color-primary-100: 20 22 27;
-  --color-primary-200: 35 39 47;
-  --color-primary-300: 54 61 73;
-  --color-primary-400: 72 82 97;
-  --color-primary-500: 102 112 126;
-  --color-primary-600: 146 153 166;
-  --color-primary-700: 186 192 203;
-  --color-primary-800: 218 223 230;
-  --color-primary-900: 239 242 245;
-  --color-primary-950: 252 253 255;
-}
-
-html {
-  @apply text-primary-50 bg-primary-950;
-}
-</style>

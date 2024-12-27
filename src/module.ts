@@ -141,13 +141,25 @@ export const NotificationType: Enumize<NotificationType> = {
   SYSTEM: 'SYSTEM',
 } as const
 
+export type ButtonSizes = 'sm' | 'md' | 'lg' | 'xl' | 'icon'
+export type ButtonVariants =
+  | 'primary'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'ghost'
+  | 'link'
+export type ButtonIconPosition = 'left' | 'right'
+
 export interface ButtonProps {
   tag?: Element['tagName']
-  type?: 'main' | 'shadow'
-  size?: 'sm' | 'md' | 'lg' | 'xl'
+  variant?: ButtonVariants
+  size?: ButtonSizes
   icon?: string
-  iconPosition?: 'left' | 'right'
+  iconPosition?: ButtonIconPosition
   selected?: boolean
+  disabled?: boolean
+  type?: HTMLButtonElement['type']
 }
 
 export interface OptionItem<T = unknown> {
