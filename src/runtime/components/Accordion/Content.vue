@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="cont"
+    ref="content"
     class="w-full h-0 overflow-hidden transition-all"
     :class="{ 'h-auto': isOpen }"
   >
@@ -11,32 +11,13 @@
 </template>
 
 <script lang="ts" setup>
-import { onClickOutside } from '@vueuse/core'
-import { type Ref, inject, ref, useTemplateRef } from 'vue'
+import { type Ref, inject } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-const { tag = 'div', required = false } = defineProps<{
-  tag?: HTMLElement['tagName']
-  required?: boolean
-}>()
+const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
 
-const isOpen = inject<Ref<boolean>>('accordionState') || ref(false)
-const trigger = inject<Ref<HTMLElement>>('accordionTrigger')
+const isOpen = inject<Ref<boolean>>('accordionState')
 
-const cont = useTemplateRef<HTMLElement>('cont')
-
-onClickOutside(
-  cont,
-  () => {
-    if (required) return
-    isOpen.value = false
-  },
-  { ignore: [trigger] },
-)
-
-const openAccordion = () => (isOpen.value = true)
-const closeAccordion = () => (isOpen.value = false)
-
-defineExpose({ openAccordion, closeAccordion })
+const content = inject<Ref<HTMLElement>>('accordionContent')
 </script>
