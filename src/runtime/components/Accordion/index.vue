@@ -12,12 +12,12 @@ const trigger = ref<HTMLElement>()
 const content = ref<HTMLElement>()
 
 const {
-  isOpen: isO,
   tag = 'div',
+  isOpen: isO,
   required,
 } = defineProps<{
-  isOpen?: MaybeRef<boolean>
   tag?: HTMLElement['tagName']
+  isOpen?: MaybeRef<boolean>
   required?: boolean
 }>()
 const emit = defineEmits<{ (e: 'update:isOpen', value: boolean): void }>()
@@ -25,10 +25,10 @@ const emit = defineEmits<{ (e: 'update:isOpen', value: boolean): void }>()
 const fallbackIsOpen = ref<boolean>(false)
 const isOpen = computed({
   get: () => isO || fallbackIsOpen.value,
-  set: (value: boolean) => {
-    if (isO !== undefined) emit('update:isOpen', value)
-    else fallbackIsOpen.value = value
-  },
+  set: (value: boolean) =>
+    isO !== undefined
+      ? emit('update:isOpen', value)
+      : (fallbackIsOpen.value = value),
 })
 
 onClickOutside(
