@@ -110,6 +110,5 @@ provide('dialogTrigger', trigger)
 provide('dialogContent', content)
 provide('dialogState', isOpen)
 provide('dialogIsClose', isClose)
-provide('dialogToggle', toggle)
 provide('dialogNest', nest)
 </script>

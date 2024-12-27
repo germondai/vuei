@@ -17,18 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  type ComputedRef,
-  type HTMLAttributes,
-  type Ref,
-  inject,
-  ref,
-} from 'vue'
+import { type ComputedRef, type HTMLAttributes, type Ref, inject } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-const isOpen = inject<Ref<boolean>>('dialogState', ref(false))
-const content = inject<Ref<HTMLElement> | null>('dialogContent', null)
+const isOpen = inject<Ref<boolean>>('dialogState')
+const content = inject<Ref<HTMLElement> | null>('dialogContent')
 
 const childIsOpen = inject<ComputedRef<boolean> | boolean>(
   'dialogChildState',
