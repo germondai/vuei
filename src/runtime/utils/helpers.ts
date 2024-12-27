@@ -1,3 +1,8 @@
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
+
 export const getEffectiveZIndex = (el: HTMLElement): number => {
   while (el) {
     const zIndex = window.getComputedStyle(el).zIndex
