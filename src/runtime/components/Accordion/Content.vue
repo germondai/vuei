@@ -1,21 +1,21 @@
 <template>
-  <div
+  <Primitive
+    v-bind="props"
     ref="content"
     class="w-full h-0 overflow-hidden transition-all"
     :class="{ 'h-auto': isOpen }"
+    :style="!isOpen && { padding: 'unset' }"
   >
-    <component :is="tag" v-bind="$attrs">
-      <slot />
-    </component>
-  </div>
+    <slot />
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { type Ref, inject } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import Primitive from '../Primitive/index.vue'
 
-defineOptions({ inheritAttrs: false })
-
-const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+const { ...props } = defineProps<{} & PrimitiveProps>()
 
 const isOpen = inject<Ref<boolean>>('accordionState')
 

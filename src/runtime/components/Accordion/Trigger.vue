@@ -1,18 +1,20 @@
 <template>
-  <component
-    :is="tag"
+  <Primitive
+    v-bind="props"
     ref="trigger"
     class="cursor-pointer"
     @click="isOpen = !isOpen"
   >
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { type Ref, inject } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import Primitive from '../Primitive/index.vue'
 
-const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+const { ...props } = defineProps<{} & PrimitiveProps>()
 
 const isOpen = inject<Ref<boolean>>('accordionState')
 

@@ -13,15 +13,11 @@
     </VIPopoverContent>
   </VIPopover>
   <VIAccordion>
-    <VIAccordionTrigger>helou</VIAccordionTrigger>
-    <VIAccordionContent class="p-4 rounded-lg">
-      <div>Accordion content</div>
-      <div>Accordion content</div>
-      <div>Accordion content</div>
-      <div>Accordion content</div>
-      <div>Accordion content</div>
-      <div>Accordion content</div>
-      <div>Accordion content</div>
+    <VIAccordionTrigger as-child>
+      <VIButton>helou</VIButton>
+    </VIAccordionTrigger>
+    <VIAccordionContent as="ul" class="p-4 rounded-lg">
+      <li v-for="key in 5" :key>Accordion content</li>
     </VIAccordionContent>
   </VIAccordion>
   <VIHoloTilt>
