@@ -6,7 +6,7 @@
       <span v-for="key in 3" :key class="size-1 bg-primary-50 rounded-full" />
     </PopoverTrigger>
     <PopoverContent
-      :is="'ul'"
+      tag="ul"
       class="w-48 p-2 rounded-lg bg-primary-900/5 backdrop-blur shdw"
     >
       <slot />
