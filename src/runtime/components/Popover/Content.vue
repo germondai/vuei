@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { useElementBounding, useWindowSize } from '@vueuse/core'
-import { type HTMLAttributes, type Ref, computed, inject, ref } from 'vue'
+import { type HTMLAttributes, type Ref, computed, inject } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -38,9 +38,9 @@ const {
   bgClass?: HTMLAttributes['class']
 }>()
 
-const isOpen = inject<Ref<boolean>>('popoverState', ref(false))
-const trigger = inject<Ref<HTMLElement> | null>('popoverTrigger', null)
-const content = inject<Ref<HTMLElement> | null>('popoverContent', null)
+const isOpen = inject<Ref<boolean>>('popoverState')
+const trigger = inject<Ref<HTMLElement>>('popoverTrigger')
+const content = inject<Ref<HTMLElement>>('popoverContent')
 
 const { width: windowWidth, height: windowHeight } = useWindowSize()
 

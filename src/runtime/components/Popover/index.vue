@@ -49,5 +49,4 @@ defineExpose({ open, close, toggle })
 provide('popoverTrigger', trigger)
 provide('popoverContent', content)
 provide('popoverState', isOpen)
-provide('popoverToggle', toggle)
 </script>
