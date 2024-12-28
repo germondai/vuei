@@ -19,10 +19,10 @@ import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
 const {
-  as = 'div',
-  asChild,
   before = { color: 'rgb(var(--color-primary-50) / 0.3)', size: 600 },
   after = { color: 'rgb(var(--color-primary-50) / 0.1)', size: 400 },
+  as = 'div',
+  asChild,
 } = defineProps<{ before?: Flare; after?: Flare } & PrimitiveProps>()
 
 const baseClass = 'FlareItem'
