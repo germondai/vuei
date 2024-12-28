@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="relative w-full max-w-sm p-2 flex items-center gap-2 rounded-lg bg-primary-900/5 backdrop-blur pointer-events-auto overflow-hidden shdw"
-  >
+  <Primitive v-bind="props" :class="cn(baseClass)">
     <Icon
       v-if="toast.icon"
       :name="toast.icon.name"
@@ -23,16 +21,20 @@
     >
       <Icon name="mdi:close" class="size-4 sm:size-6" />
     </button>
-  </div>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
+import type { PrimitiveProps } from '../../../module'
 import type { Toast } from '../../composables/useToast'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 import { Icon } from '#components'
 
-const { toast } = defineProps<{ toast: Toast }>()
+const baseClass =
+  'relative w-full max-w-sm p-2 flex items-center gap-2 rounded-lg bg-primary-900/5 backdrop-blur pointer-events-auto overflow-hidden shdw'
 
-const emit = defineEmits<{
-  (e: 'remove', id: Toast['id']): void
-}>()
+const { toast, ...props } = defineProps<{ toast: Toast } & PrimitiveProps>()
+
+const emit = defineEmits<{ (e: 'remove', id: Toast['id']): void }>()
 </script>
