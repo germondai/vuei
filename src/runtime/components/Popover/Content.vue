@@ -2,19 +2,15 @@
   <Teleport to="#teleports">
     <TransitionGroup :name="transition">
       <template v-if="isOpen">
-        <div
-          :class="bgClass"
-          class="fixed inset-0 size-full z-[1000] pointer-events-none"
-        />
-        <component
-          :is="tag"
+        <div :class="cn(baseBgClass, bgClass)" />
+        <Primitive
           ref="content"
+          v-bind="{ ...props, ...$attrs }"
+          :class="cn(baseClass)"
           :style
-          v-bind="$attrs"
-          class="fixed overflow-y-auto pointer-events-auto z-[1001]"
         >
           <slot />
-        </component>
+        </Primitive>
       </template>
     </TransitionGroup>
   </Teleport>
@@ -23,20 +19,27 @@
 <script lang="ts" setup>
 import { useElementBounding, useWindowSize } from '@vueuse/core'
 import { type HTMLAttributes, type Ref, computed, inject } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
 defineOptions({ inheritAttrs: false })
 
+const baseClass = 'fixed overflow-y-auto pointer-events-auto z-[1001]'
+const baseBgClass = 'fixed inset-0 size-full z-[1000] pointer-events-none'
+
 const {
-  tag = 'div',
   transition = 'fade',
   gap = 8,
   bgClass,
-} = defineProps<{
-  transition?: 'fade'
-  tag?: HTMLElement['tagName']
-  gap?: number
-  bgClass?: HTMLAttributes['class']
-}>()
+  ...props
+} = defineProps<
+  {
+    transition?: 'fade'
+    gap?: number
+    bgClass?: HTMLAttributes['class']
+  } & PrimitiveProps
+>()
 
 const isOpen = inject<Ref<boolean>>('popoverState')
 const trigger = inject<Ref<HTMLElement>>('popoverTrigger')

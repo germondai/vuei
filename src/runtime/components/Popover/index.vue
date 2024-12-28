@@ -1,25 +1,29 @@
 <template>
-  <component :is="tag" class="relative">
+  <Primitive v-bind="props" :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core'
 import { type MaybeRef, computed, provide, ref } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
 const content = ref<HTMLElement>()
 const trigger = ref<HTMLElement>()
 
+const baseClass = 'relative'
+
 const {
-  tag = 'div',
   isOpen: isO,
   required,
-} = defineProps<{
-  tag?: HTMLElement['tagName']
-  isOpen?: MaybeRef<boolean>
-  required?: boolean
-}>()
+  ...props
+} = defineProps<
+  { isOpen?: MaybeRef<boolean>; required?: boolean } & PrimitiveProps
+>()
+
 const emit = defineEmits<{ (e: 'update:isOpen', value: boolean): void }>()
 
 const fallbackIsOpen = ref<boolean>(false)
