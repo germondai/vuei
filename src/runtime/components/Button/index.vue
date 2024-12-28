@@ -1,6 +1,7 @@
 <template>
-  <component
-    :is
+  <Primitive
+    :as
+    :as-child
     :class="
       cn(
         baseClass,
@@ -23,32 +24,41 @@
       "
     />
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { objectOmit } from '@vueuse/core'
 import type { ClassValue } from 'clsx'
 import { computed } from 'vue'
-import type { ButtonProps, ButtonSizes, ButtonVariants } from '../../../module'
+import type {
+  ButtonProps,
+  ButtonSizes,
+  ButtonVariants,
+  PrimitiveProps,
+} from '../../../module'
 import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 import type { NuxtLinkProps } from '#app'
 import { Icon, NuxtLink } from '#components'
 
 const {
-  tag = 'button',
   icon,
   iconPosition = 'left',
   variant = 'primary',
   size = 'md',
   selected = false,
   disabled,
+  as: primitiveAs = 'button',
+  asChild,
   ...linkProps
-} = defineProps<NuxtLinkProps & ButtonProps>()
+} = defineProps<ButtonProps & PrimitiveProps & NuxtLinkProps>()
 
-const is = computed(() => (linkProps.href || linkProps.to ? NuxtLink : tag))
+const as = computed(() =>
+  linkProps.href || linkProps.to ? NuxtLink : primitiveAs,
+)
 const bind = computed(() =>
-  is.value === NuxtLink
+  as.value === NuxtLink
     ? objectOmit(linkProps, ['type'])
     : { type: linkProps.type },
 )
