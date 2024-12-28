@@ -1,20 +1,18 @@
 <template>
-  <component :is="tag" ref="target">{{ count }}</component>
+  <Primitive ref="target" v-bind="props">{{ count }}</Primitive>
 </template>
 
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
 import { ref } from 'vue'
+import type { PrimitiveProps } from './../../module'
+import Primitive from './Primitive/index.vue'
 
 const {
-  tag = 'div',
   number = 0,
   duration = 1000,
-} = defineProps<{
-  tag?: HTMLElement['tagName']
-  number?: number
-  duration?: number
-}>()
+  ...props
+} = defineProps<{ number?: number; duration?: number } & PrimitiveProps>()
 
 const count = ref<number>(0)
 
