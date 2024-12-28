@@ -1,24 +1,37 @@
 <template>
-  <button
-    class="relative flex items-center w-12 h-6 p-0.5 rounded-full shdw transition-colors"
-    :class="{ 'bg-primary-900': value }"
+  <Primitive
+    v-bind="props"
+    :class="cn(baseClass, { 'bg-primary-900': value })"
     @click="value = !value"
   >
     <span
       class="size-5 rounded-full bg-primary-50 transition-transform pointer-events-none"
       :class="{ 'translate-x-6': value }"
     />
-  </button>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-import { useVModel } from '@vueuse/core'
+import { type MaybeRef, computed, isRef } from 'vue'
+import { ref } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
-const props = defineProps<{ modelValue?: boolean }>()
+const { modelValue: mV, ...props } = defineProps<
+  { modelValue?: MaybeRef<boolean> } & PrimitiveProps
+>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
+const fallbackValue = ref<boolean>(false)
+const value = computed({
+  get: () => mV || fallbackValue.value,
+  set: (value: boolean) =>
+    mV !== undefined && isRef(mV)
+      ? emit('update:modelValue', value)
+      : (fallbackValue.value = value),
+})
 
-const value = useVModel(props, 'modelValue', emit)
+const baseClass =
+  'relative flex items-center w-12 h-6 p-0.5 rounded-full shdw transition-colors'
 </script>
