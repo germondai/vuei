@@ -1,18 +1,22 @@
 <template>
-  <component :is="tag" ref="target" class="HoloTilt" :style>
+  <Primitive ref="target" v-bind="props" :class="cn(baseClass)" :style>
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { templateRef } from '@vueuse/core'
 import { computed } from 'vue'
+import type { PrimitiveProps } from './../../module'
+import { cn } from './../utils/helpers'
+import Primitive from './Primitive/index.vue'
 import { useSharedMouseInElement } from '../composables/useSharedMouseInElement'
 
-const { tag = 'div', scale = 1 } = defineProps<{
-  tag?: HTMLElement['tagName']
-  scale?: number
-}>()
+const baseClass = 'HoloTilt'
+
+const { scale = 1, ...props } = defineProps<
+  { scale?: number } & PrimitiveProps
+>()
 
 const target = templateRef<HTMLElement>('target')
 
