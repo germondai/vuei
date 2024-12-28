@@ -1,56 +1,29 @@
 <template>
-  <component
-    :is="tag"
-    :class="{
-      'cont-xs': size === 'xs',
-      'cont-sm': size === 'sm',
-      'cont-md': size === 'md',
-      'cont-lg': size === 'lg',
-      'cont-xl': size === 'xl',
-    }"
-  >
+  <Primitive :as :asChild :class="cn(baseClass, sizes[size])">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'div', size = 'lg' } = defineProps<{
-  tag?: HTMLElement['tagName']
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-}>()
+import type { ClassValue } from 'clsx'
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
+const {
+  size = 'lg',
+  as = 'div',
+  asChild,
+} = defineProps<{ size?: ContainerSize } & PrimitiveProps>()
+
+const baseClass = 'relative mx-auto'
+
+const sizes: Partial<Record<ContainerSize, ClassValue>> = {}
+sizes.xs = 'w-[98%] xs:w-[95%] md:max-w-screen-md'
+sizes.sm = sizes.xs + 'md:w-11/12 lg:max-w-screen-lg'
+sizes.md = sizes.sm + 'lg:w-5/6 xl:max-w-screen-xl'
+sizes.lg = sizes.md + 'xl:w-4/5 2xl:max-w-screen-2xl'
+sizes.xl = sizes.lg + '3xl:max-w-screen-3xl'
 </script>
-
-<style scoped>
-.cont {
-  @apply relative mx-auto;
-}
-
-.cont-xs {
-  @apply cont;
-  @apply w-[98%] xs:w-[95%];
-  @apply md:max-w-screen-md;
-}
-
-.cont-sm {
-  @apply cont-xs;
-  @apply md:w-11/12;
-  @apply lg:max-w-screen-lg;
-}
-
-.cont-md {
-  @apply cont-sm;
-  @apply lg:w-5/6;
-  @apply xl:max-w-screen-xl;
-}
-
-.cont-lg {
-  @apply cont-md;
-  @apply xl:w-4/5;
-  @apply 2xl:max-w-screen-2xl;
-}
-
-.cont-xl {
-  @apply cont-lg;
-  @apply 3xl:max-w-screen-3xl;
-}
-</style>
