@@ -1,5 +1,5 @@
 <template>
-  <Primitive :as :asChild :class="cn(baseClass, sizes[size])">
+  <Primitive v-bind="props" :class="cn(baseClass, sizes[size])">
     <slot />
   </Primitive>
 </template>
@@ -12,11 +12,9 @@ import Primitive from '../Primitive/index.vue'
 
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-const {
-  size = 'lg',
-  as = 'div',
-  asChild,
-} = defineProps<{ size?: ContainerSize } & PrimitiveProps>()
+const { size = 'lg', ...props } = defineProps<
+  { size?: ContainerSize } & PrimitiveProps
+>()
 
 const baseClass = 'relative mx-auto'
 

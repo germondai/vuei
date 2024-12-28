@@ -1,8 +1,7 @@
 <template>
   <Primitive
     ref="float"
-    :as
-    :asChild
+    v-bind="props"
     :class="cn(baseClass)"
     :style="parallaxStyle"
   >
@@ -17,11 +16,9 @@ import { useSharedMouseInElement } from '../../composables/useSharedMouseInEleme
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
-const {
-  velocity = 1,
-  as = 'div',
-  asChild,
-} = defineProps<{ velocity?: number } & PrimitiveProps>()
+const { velocity = 1, ...props } = defineProps<
+  { velocity?: number } & PrimitiveProps
+>()
 
 const baseClass = 'FloatItem'
 

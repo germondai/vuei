@@ -1,8 +1,7 @@
 <template>
   <Primitive
     ref="target"
-    :as
-    :asChild
+    v-bind="props"
     :class="cn(baseClass)"
     :style="computedStyle"
   >
@@ -21,8 +20,7 @@ import Primitive from '../Primitive/index.vue'
 const {
   before = { color: 'rgb(var(--color-primary-50) / 0.3)', size: 600 },
   after = { color: 'rgb(var(--color-primary-50) / 0.1)', size: 400 },
-  as = 'div',
-  asChild,
+  ...props
 } = defineProps<{ before?: Flare; after?: Flare } & PrimitiveProps>()
 
 const baseClass = 'FlareItem'
