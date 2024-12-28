@@ -1,6 +1,7 @@
 <template>
   <Primitive
-    v-bind="props"
+    :as
+    :as-child
     :class="cn(baseClass, { 'bg-primary-900': value })"
     @click="value = !value"
   >
@@ -12,25 +13,21 @@
 </template>
 
 <script lang="ts" setup>
-import { type MaybeRef, computed, isRef } from 'vue'
-import { ref } from 'vue'
+import { useVModel } from '@vueuse/core'
+import type { MaybeRef } from 'vue'
 import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
-const { modelValue: mV, ...props } = defineProps<
-  { modelValue?: MaybeRef<boolean> } & PrimitiveProps
->()
+const {
+  as = 'button',
+  asChild,
+  ...props
+} = defineProps<{ modelValue?: MaybeRef<boolean> } & PrimitiveProps>()
+
 const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 
-const fallbackValue = ref<boolean>(false)
-const value = computed({
-  get: () => mV || fallbackValue.value,
-  set: (value: boolean) =>
-    mV !== undefined && isRef(mV)
-      ? emit('update:modelValue', value)
-      : (fallbackValue.value = value),
-})
+const value = useVModel(props, 'modelValue', emit)
 
 const baseClass =
   'relative flex items-center w-12 h-6 p-0.5 rounded-full shdw transition-colors'
