@@ -1,24 +1,31 @@
 <template>
-  <component :is="tag" ref="target" class="FlareItem" :style="computedStyle">
+  <Primitive
+    ref="target"
+    :as
+    :asChild
+    :class="cn(baseClass)"
+    :style="computedStyle"
+  >
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { templateRef } from '@vueuse/core'
 import { computed } from 'vue'
-import type { Flare } from '../../../module'
+import type { Flare, PrimitiveProps } from '../../../module'
 import { useSharedMouseInElement } from '../../composables/useSharedMouseInElement'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
 const {
-  tag = 'div',
+  as = 'div',
+  asChild,
   before = { color: 'rgb(var(--color-primary-50) / 0.3)', size: 600 },
   after = { color: 'rgb(var(--color-primary-50) / 0.1)', size: 400 },
-} = defineProps<{
-  tag?: HTMLElement['tagName']
-  before?: Flare
-  after?: Flare
-}>()
+} = defineProps<{ before?: Flare; after?: Flare } & PrimitiveProps>()
+
+const baseClass = 'FlareItem'
 
 const target = templateRef<HTMLElement>('target')
 const { elementX, elementY } = useSharedMouseInElement({ target })

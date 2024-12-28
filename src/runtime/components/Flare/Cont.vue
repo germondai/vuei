@@ -1,14 +1,25 @@
 <template>
-  <component :is="tag" class="FlareCont">
+  <Primitive :as :asChild :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+/**
+ * This component is designed to apply hover effects to child elements (FlareItem)
+ * when the parent container (FlareCont) is hovered over.
+ *
+ * Use this component only if this behavior is required. Otherwise, the component
+ * adds no functional value and can be omitted.
+ */
 
-// use this component only if you want to light up the item only on cont hover
-// otherwise its useless
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+const { as = 'div', asChild } = defineProps<{} & PrimitiveProps>()
+
+const baseClass = 'FlareCont'
 </script>
 
 <style>
