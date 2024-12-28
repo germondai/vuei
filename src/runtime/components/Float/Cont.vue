@@ -1,9 +1,15 @@
 <template>
-  <component :is="tag" class="pointer-events-none">
+  <Primitive :as :asChild :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+const { as = 'div', asChild } = defineProps<{} & PrimitiveProps>()
+
+const baseClass = 'pointer-events-none'
 </script>

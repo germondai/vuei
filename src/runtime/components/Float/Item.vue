@@ -1,17 +1,29 @@
 <template>
-  <component :is="tag" ref="float" class="FloatItem" :style="parallaxStyle">
+  <Primitive
+    ref="float"
+    :as
+    :asChild
+    :class="cn(baseClass)"
+    :style="parallaxStyle"
+  >
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import type { PrimitiveProps } from '../../../module'
 import { useSharedMouseInElement } from '../../composables/useSharedMouseInElement'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
-const { tag = 'div', velocity = 1 } = defineProps<{
-  tag?: HTMLElement['tagName']
-  velocity?: number
-}>()
+const {
+  velocity = 1,
+  as = 'div',
+  asChild,
+} = defineProps<{ velocity?: number } & PrimitiveProps>()
+
+const baseClass = 'FloatItem'
 
 const float = ref()
 const {
