@@ -1,12 +1,15 @@
 <template>
-  <component
-    :is="tag"
-    class="flex flex-col-reverse sm:flex-row gap-0.5 sm:gap-2"
-  >
+  <Primitive :as :asChild :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'div' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+const { as = 'div', asChild } = defineProps<{} & PrimitiveProps>()
+
+const baseClass = 'flex flex-col-reverse sm:flex-row gap-0.5 sm:gap-2'
 </script>

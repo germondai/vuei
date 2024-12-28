@@ -1,9 +1,15 @@
 <template>
-  <component :is="tag" class="opacity-60">
+  <Primitive :as :asChild :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'p' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+const { as = 'p', asChild } = defineProps<{} & PrimitiveProps>()
+
+const baseClass = 'opacity-60'
 </script>

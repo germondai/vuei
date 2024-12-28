@@ -1,9 +1,15 @@
 <template>
-  <component :is="tag" class="text-xl font-bold">
+  <Primitive :as :asChild :class="cn(baseClass)">
     <slot />
-  </component>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-const { tag = 'b' } = defineProps<{ tag?: HTMLElement['tagName'] }>()
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
+
+const { as = 'b', asChild } = defineProps<{} & PrimitiveProps>()
+
+const baseClass = 'text-xl font-bold'
 </script>
