@@ -1,6 +1,15 @@
 <template>
-  <div :class="wrapperClass">
-    <component :is="flare ? FlareItem : 'div'" class="field rounded-lg">
+  <Primitive
+    :as="wrapper?.as"
+    :asChild="wrapper?.asChild"
+    :class="cn(wrapper?.class)"
+  >
+    <component
+      :is="flare ? FlareItem : Primitive"
+      :as="field?.as"
+      :asChild="field?.asChild"
+      :class="cn('field rounded-lg', field?.class)"
+    >
       <textarea
         v-if="type === 'textarea' && typeof value !== 'boolean'"
         v-bind="$attrs"
@@ -31,14 +40,22 @@
         <span role="alert">{{ error }}</span>
       </li>
     </ul>
-  </div>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core'
-import { type HTMLAttributes, type InputHTMLAttributes, useId } from 'vue'
+import type { ClassValue } from 'clsx'
+import { type InputHTMLAttributes, useId } from 'vue'
+import type { PrimitiveProps } from '../../../module'
 import { useValidate } from '../../composables/useValidate'
+import { cn } from '../../utils/helpers'
 import FlareItem from '../Flare/Item.vue'
+import Primitive from '../Primitive/index.vue'
+
+interface PrimitiveElProp extends PrimitiveProps {
+  class?: ClassValue
+}
 
 type MV = string | number | boolean | null
 
@@ -51,20 +68,20 @@ const {
   schema,
   type = 'text',
   label = true,
-  wrapperClass,
+  wrapper,
+  field,
   ...props
 } = defineProps<{
   flare?: boolean
   schema?: object
   type?: InputHTMLAttributes['type'] | 'textarea'
   label?: boolean
-  wrapperClass?: HTMLAttributes['class']
+  wrapper?: PrimitiveElProp
+  field?: PrimitiveElProp
   modelValue?: MV
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value?: MV): void
-}>()
+const emit = defineEmits<{ (e: 'update:modelValue', value?: MV): void }>()
 
 const value = useVModel(props, 'modelValue', emit)
 
