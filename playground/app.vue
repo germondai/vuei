@@ -12,6 +12,14 @@
       <div>Popover content</div>
     </VIPopoverContent>
   </VIPopover>
+  <VIPopover>
+    <VIPopoverTrigger asChild>
+      <VIButton>asChildPopover</VIButton>
+    </VIPopoverTrigger>
+    <VIPopoverContent asChild class="p-4 rounded-lg">
+      <VICard> asChildPopoverContent </VICard>
+    </VIPopoverContent>
+  </VIPopover>
   <VIAccordion>
     <VIAccordionTrigger asChild>
       <VIButton>helou</VIButton>
