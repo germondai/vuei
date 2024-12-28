@@ -1,10 +1,5 @@
 <template>
-  <Primitive
-    ref="float"
-    v-bind="props"
-    :class="cn(baseClass)"
-    :style="parallaxStyle"
-  >
+  <Primitive ref="float" v-bind="props" :class="cn(baseClass)" :style>
     <slot />
   </Primitive>
 </template>
@@ -30,11 +25,16 @@ const {
   elementHeight: elH,
 } = useSharedMouseInElement({ target: float })
 
-const parallaxStyle = computed(() => {
-  const x = Math.round((elX.value - elW.value / 2) * velocity) / 100
-  const y = Math.round(((elY.value - elH.value / 10) * velocity) / 200)
+const style = computed(() => {
+  const x = elX.value
+  const y = elY.value
+  const w = elW.value
+  const h = elH.value
 
-  return `transform: translate(${x}px, ${y}px);`
+  const tX = x && w && Math.round(((x - w / 2) * velocity) / 100)
+  const tY = y && h && Math.round(((y - h / 10) * velocity) / 200)
+
+  return tX && tY && `transform: translate(${tX}px, ${tY}px);`
 })
 </script>
 

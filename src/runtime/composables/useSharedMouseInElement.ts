@@ -26,12 +26,12 @@ export const useSharedMouseInElement = ({
     target && target !== null ? target : window?.document.body,
   )
 
-  const elementX = ref<number>(0)
-  const elementY = ref<number>(0)
-  const elementPositionX = ref<number>(0)
-  const elementPositionY = ref<number>(0)
-  const elementHeight = ref<number>(0)
-  const elementWidth = ref<number>(0)
+  const elementX = ref<number>()
+  const elementY = ref<number>()
+  const elementPositionX = ref<number>()
+  const elementPositionY = ref<number>()
+  const elementHeight = ref<number>()
+  const elementWidth = ref<number>()
   const isOutside = ref<boolean>(true)
 
   let stop = () => {}

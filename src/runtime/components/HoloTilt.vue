@@ -31,11 +31,18 @@ const {
 const style = computed(() => {
   if (isO.value) return
 
-  const rMax = 10
-  const rX = Math.round(rMax / 2 - (elY.value / elH.value) * rMax)
-  const rY = Math.round((elX.value / elW.value) * rMax - rMax / 1.5)
+  const x = elX.value
+  const y = elY.value
+  const w = elW.value
+  const h = elH.value
 
-  return `transform: perspective(${Math.round(elW.value)}px) rotateX(${rX}deg) rotateY(${rY}deg) scale(${scale});`
+  const rMax = 10
+  const rX = y && h && Math.round(rMax / 2 - (y / h) * rMax)
+  const rY = x && w && Math.round((x / w) * rMax - rMax / 1.5)
+
+  const perspective = w && Math.round(w)
+
+  return `transform: perspective(${perspective}px) rotateX(${rX}deg) rotateY(${rY}deg) scale(${scale});`
 })
 </script>
 

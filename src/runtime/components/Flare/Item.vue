@@ -1,10 +1,5 @@
 <template>
-  <Primitive
-    ref="target"
-    v-bind="props"
-    :class="cn(baseClass)"
-    :style="computedStyle"
-  >
+  <Primitive ref="target" v-bind="props" :class="cn(baseClass)" :style>
     <slot />
   </Primitive>
 </template>
@@ -26,9 +21,12 @@ const {
 const baseClass = 'FlareItem'
 
 const target = templateRef<HTMLElement>('target')
-const { elementX, elementY } = useSharedMouseInElement({ target })
+const { elementX: elX, elementY: elY } = useSharedMouseInElement({ target })
 
-const computedStyle = computed(() => {
+const style = computed(() => {
+  const x = elX.value
+  const y = elY.value
+
   const b = before && {
     '--fbc': before ? before.color : '',
     '--fbs': `${before.size}px`,
@@ -39,12 +37,15 @@ const computedStyle = computed(() => {
     '--fas': `${after.size}px`,
   }
 
-  return {
-    '--x': `${Math.round(elementX.value)}px`,
-    '--y': `${Math.round(elementY.value)}px`,
-    ...b,
-    ...a,
-  }
+  return (
+    x &&
+    y && {
+      '--x': `${Math.round(x)}px`,
+      '--y': `${Math.round(y)}px`,
+      ...b,
+      ...a,
+    }
+  )
 })
 </script>
 
@@ -55,13 +56,13 @@ const computedStyle = computed(() => {
   &:hover {
     &::before,
     &::after {
-      @apply opacity-100 will-change-[background];
+      @apply opacity-100;
     }
   }
 
   &::before,
   &::after {
-    @apply content-[''] absolute top-0 left-0 w-full h-full rounded-[inherit] pointer-events-none duration-500 transition-opacity;
+    @apply content-[''] absolute top-0 left-0 w-full h-full rounded-[inherit] pointer-events-none duration-500 transition-opacity will-change-[background,opacity];
   }
 
   &::before {
