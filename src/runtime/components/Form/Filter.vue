@@ -8,7 +8,7 @@
       :selected="selectedTab.id === tab.id"
       :variant="selectedTab.id === tab.id ? 'primary' : 'ghost'"
       class="justify-center max-sm:flex-grow"
-      @click="emit('update:tabSelect', tab)"
+      @click="emit('update:selectedTab', tab)"
     >
       {{ tab.name }}
     </Button>
@@ -32,6 +32,6 @@ const { selectedTab, tabs, size, ...props } = defineProps<
 >()
 
 const emit = defineEmits<{
-  (e: 'update:tabSelect', value: OptionItem<T>): void
+  (e: 'update:selectedTab', value: OptionItem<T>): void
 }>()
 </script>
