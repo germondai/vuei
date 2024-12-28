@@ -1,36 +1,33 @@
 <template>
-  <span>
-    <span :class="writerClass" v-html="typeValue" />
+  <Primitive v-bind="props">
+    <span v-html="typeValue" />
     <span
       class="inline-block w-1 ml-1 bg-primary-50 animate-[cursorBlink_1s_infinite]"
       :class="{ 'animate-none': typeStatus }"
       >&nbsp;</span
     >
-  </span>
+  </Primitive>
 </template>
 
 <script lang="ts" setup>
-import {
-  type HTMLAttributes,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import type { PrimitiveProps } from './../../module'
+import Primitive from './Primitive/index.vue'
 
 const {
   typeArray,
-  writerClass,
   typingSpeed = 200,
   erasingSpeed = 100,
   newTextDelay = 2000,
-} = defineProps<{
-  writerClass?: HTMLAttributes['class']
-  typeArray: string[]
-  typingSpeed?: number
-  erasingSpeed?: number
-  newTextDelay?: number
-}>()
+  ...props
+} = defineProps<
+  {
+    typeArray: string[]
+    typingSpeed?: number
+    erasingSpeed?: number
+    newTextDelay?: number
+  } & PrimitiveProps
+>()
 
 const typeValue = ref<string>('')
 const typeStatus = ref<boolean>(false)
@@ -81,5 +78,5 @@ watch(() => typeArray, resetTyping, { deep: true })
 
 onMounted(() => resetTyping())
 
-onBeforeUnmount(() => clearTimeout(typingTimeout))
+onUnmounted(() => clearTimeout(typingTimeout))
 </script>
