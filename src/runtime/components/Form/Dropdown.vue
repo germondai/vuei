@@ -1,5 +1,5 @@
 <template>
-  <Popover v-model:is-open="isOpen">
+  <Popover v-model:isOpen="isOpen">
     <PopoverTrigger
       ref="trigger"
       class="relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors text-left cursor-pointer shdw"

@@ -2,7 +2,7 @@
   <VIButton icon="mdi:pencil">Click me!</VIButton>
   <VIDialog>
     <VIDialogTrigger>helou</VIDialogTrigger>
-    <VIDialogContent background-class="bg-red-200/80" class="p-4 rounded-lg">
+    <VIDialogContent backgroundClass="bg-red-200/80" class="p-4 rounded-lg">
       <div>Dialog content</div>
     </VIDialogContent>
   </VIDialog>
@@ -13,7 +13,7 @@
     </VIPopoverContent>
   </VIPopover>
   <VIAccordion>
-    <VIAccordionTrigger as-child>
+    <VIAccordionTrigger asChild>
       <VIButton>helou</VIButton>
     </VIAccordionTrigger>
     <VIAccordionContent as="ul" class="p-4 rounded-lg">
@@ -60,7 +60,7 @@
     <VIButton variant="link">Coze</VIButton>
   </VIContainer>
   <VICountUp :number="300" />
-  <VITypeWriter :type-array="['Is this...', 'working?']" />
+  <VITypeWriter :typeArray="['Is this...', 'working?']" />
   <VIRulerX />
   <VIRulerY />
   <VIContainer>
@@ -72,12 +72,12 @@
             <VICardDescription>Subtitle</VICardDescription>
           </VICardHeader>
           <VIFormDropdown
-            v-model:selected-item="selectedItem"
+            v-model:selectedItem="selectedItem"
             :options
             searchable
           />
           <div class="flex items-center gap-2">
-            <VIButtonToggle v-model:model-value="toggle" />
+            <VIButtonToggle v-model:modelValue="toggle" />
             <p>Switch theme</p>
           </div>
           <VICardFooter class="justify-end">

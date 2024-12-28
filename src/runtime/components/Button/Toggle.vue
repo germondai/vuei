@@ -1,7 +1,7 @@
 <template>
   <Primitive
     :as
-    :as-child
+    :asChild
     :class="cn(baseClass, { 'bg-primary-900': value })"
     @click="value = !value"
   >

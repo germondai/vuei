@@ -15,6 +15,7 @@ export default createConfigForNuxt({
     'vue/html-self-closing': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
     'vue/no-mutating-props': 'off',
+    'vue/attribute-hyphenation': ['error', 'never'],
     '@typescript-eslint/no-unused-vars': ['warn'],
     'object-shorthand': ['error', 'always'],
     'import/order': [
