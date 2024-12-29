@@ -2,11 +2,11 @@
   <Teleport to="#teleports">
     <TransitionGroup :name="transition">
       <template v-if="isOpen">
-        <div :class="cn(baseBgClass, bgClass)" />
+        <div :class="cn(baseClass.background, backgroundClass)" />
         <Primitive
           ref="content"
           v-bind="{ ...props, ...$attrs }"
-          :class="cn(baseClass)"
+          :class="cn(baseClass.content)"
           :style
         >
           <slot />
@@ -25,19 +25,21 @@ import Primitive from '../Primitive/index.vue'
 
 defineOptions({ inheritAttrs: false })
 
-const baseClass = 'fixed overflow-y-auto pointer-events-auto z-[1001]'
-const baseBgClass = 'fixed inset-0 size-full z-[1000] pointer-events-none'
+const baseClass: Record<'background' | 'content', string> = {
+  background: 'fixed inset-0 size-full z-[1000] pointer-events-none',
+  content: 'fixed overflow-y-auto pointer-events-auto z-[1001]',
+}
 
 const {
   transition = 'fade',
   gap = 8,
-  bgClass,
+  backgroundClass,
   ...props
 } = defineProps<
   {
     transition?: 'fade'
     gap?: number
-    bgClass?: HTMLAttributes['class']
+    backgroundClass?: HTMLAttributes['class']
   } & PrimitiveProps
 >()
 

@@ -1,23 +1,28 @@
 <template>
   <Teleport to="#teleports">
     <Transition :name="transition">
-      <component
-        :is="tag"
+      <div
         v-show="isOpen"
         v-if="isOpen || childIsOpen"
-        class="fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]"
-        :class="backgroundClass"
+        :class="cn(baseClass.background, backgroundClass)"
       >
-        <div ref="content" v-bind="$attrs" class="overflow-y-auto max-h-full">
+        <Primitive
+          ref="content"
+          v-bind="{ ...props, ...$attrs }"
+          :class="cn(baseClass.content)"
+        >
           <slot />
-        </div>
-      </component>
+        </Primitive>
+      </div>
     </Transition>
   </Teleport>
 </template>
 
 <script lang="ts" setup>
 import { type ComputedRef, type HTMLAttributes, type Ref, inject } from 'vue'
+import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
+import Primitive from '../Primitive/index.vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -29,13 +34,20 @@ const childIsOpen = inject<ComputedRef<boolean> | boolean>(
   false,
 )
 
+const baseClass: Record<'background' | 'content', string> = {
+  background:
+    'fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]',
+  content: 'overflow-y-auto max-h-full',
+}
+
 const {
-  tag = 'div',
-  backgroundClass,
   transition = 'fade',
-} = defineProps<{
-  tag?: HTMLElement['tagName']
-  backgroundClass?: HTMLAttributes['class']
-  transition?: 'fade'
-}>()
+  backgroundClass,
+  ...props
+} = defineProps<
+  {
+    transition?: 'fade'
+    backgroundClass?: HTMLAttributes['class']
+  } & PrimitiveProps
+>()
 </script>
