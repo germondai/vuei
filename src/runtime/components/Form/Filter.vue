@@ -6,7 +6,7 @@
       :icon="tab.icon"
       :size
       :selected="selectedTab.id === tab.id"
-      :variant="selectedTab.id === tab.id ? 'primary' : 'ghost'"
+      :variant="selectedTab.id === tab.id ? 'primary' : 'outline'"
       class="justify-center max-sm:flex-grow"
       @click="emit('update:selectedTab', tab)"
     >

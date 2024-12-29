@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core'
-import { type MaybeRef, computed, provide, ref } from 'vue'
+import { type MaybeRef, computed, isRef, provide, ref } from 'vue'
 
 const content = ref<HTMLElement>()
 const trigger = ref<HTMLElement>()
@@ -20,7 +20,7 @@ const fallbackIsOpen = ref<boolean>(false)
 const isOpen = computed({
   get: () => isO || fallbackIsOpen.value,
   set: (value: boolean) =>
-    isO !== undefined
+    isO !== undefined && isRef(isO)
       ? emit('update:isOpen', value)
       : (fallbackIsOpen.value = value),
 })

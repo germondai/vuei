@@ -32,7 +32,7 @@
     <div>holo tilt</div>
   </VIHoloTilt>
   <VIFlareItem>helou?</VIFlareItem>
-
+  <VIButtonToggle v-model="tgl" />
   <VIFlareCont class="p-16">
     <VIHoloTilt>
       <VIFlareItem :before="{ color: '#ff0000', size: 600 }">
@@ -74,11 +74,17 @@
   <VIContainer>
     <VIHoloTilt>
       <VIFlareItem class="m-4 p-0.5 rounded-lg">
-        <VICard class="bg-primary-950/90">
+        <VIEditable
+          v-slot="{ edit }"
+          :as="VICard"
+          class="bg-primary-950/90"
+          allowed
+        >
           <VICardHeader>
             <VICardTitle>Title</VICardTitle>
             <VICardDescription>Subtitle</VICardDescription>
           </VICardHeader>
+          <p>Editing: {{ edit }}</p>
           <VIFormDropdown
             v-model:selectedItem="selectedItem"
             :options
@@ -113,7 +119,7 @@
               </VIDialogContent>
             </VIDialog>
           </VICardFooter>
-        </VICard>
+        </VIEditable>
       </VIFlareItem>
     </VIHoloTilt>
   </VIContainer>
@@ -122,6 +128,7 @@
 
 <script lang="ts" setup>
 import type { OptionItem } from '../src/module'
+import { VICard } from '#components'
 
 const { addToast } = useToast()
 
@@ -138,6 +145,7 @@ const options: OptionItem[] = [
 
 const selectedItem = ref<OptionItem | null>(null)
 
+const tgl = ref<boolean>(false)
 const toggle = ref<boolean>(false)
 
 onMounted(() =>

@@ -2,7 +2,7 @@
   <Primitive
     :as
     :asChild
-    :class="cn(baseClass.root, { 'bg-primary-900': value })"
+    :class="cn(baseClass.root, { 'bg-primary-800': value })"
     @click="value = !value"
   >
     <span :class="cn(baseClass.thumb, { 'translate-x-6': value })" />

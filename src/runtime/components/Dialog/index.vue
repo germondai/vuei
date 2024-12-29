@@ -5,7 +5,16 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core'
 import type { ComputedRef, MaybeRef, Ref } from 'vue'
-import { computed, inject, onUnmounted, provide, ref, useId, watch } from 'vue'
+import {
+  computed,
+  inject,
+  isRef,
+  onUnmounted,
+  provide,
+  ref,
+  useId,
+  watch,
+} from 'vue'
 import { getEffectiveZIndex } from '../../utils/helpers'
 
 const id = useId()
@@ -31,7 +40,7 @@ const fallbackIsOpen = ref<boolean>(false)
 const isOpen = computed({
   get: () => isO || fallbackIsOpen.value,
   set: (value: boolean) => {
-    if (isO !== undefined) emit('update:isOpen', value)
+    if (isO !== undefined && isRef(isO)) emit('update:isOpen', value)
     else fallbackIsOpen.value = value
 
     if (isClose.value === false && parentIsOpen)
