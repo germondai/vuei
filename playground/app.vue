@@ -1,9 +1,17 @@
 <template>
   <VIButton icon="mdi:pencil">Click me!</VIButton>
   <VIDialog>
-    <VIDialogTrigger>helou</VIDialogTrigger>
-    <VIDialogContent backgroundClass="bg-red-200/80" class="p-4 rounded-lg">
-      <div>Dialog content</div>
+    <VIDialogTrigger>helou dialog</VIDialogTrigger>
+    <VIDialogContent backgroundClass="bg-red-200/80" asChild>
+      <VIContainer size="xs" class="p-4 rounded-lg">
+        <VICardTitle>Dialog content</VICardTitle>
+        <VIPopover>
+          <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
+          <VIPopoverContent class="p-4 rounded-lg">
+            <div>Popover content</div>
+          </VIPopoverContent>
+        </VIPopover>
+      </VIContainer>
     </VIDialogContent>
   </VIDialog>
   <VIPopover>
@@ -44,10 +52,10 @@
     <VIBreadcrumbLink :href="`/course`">Courses</VIBreadcrumbLink>
     <VIBreadcrumbSeparator />
     <VIBreadcrumbDropdown>
-      <VIBreadcrumbLink> helou </VIBreadcrumbLink>
+      <VIBreadcrumbLink :href="`/hello`"> helou </VIBreadcrumbLink>
     </VIBreadcrumbDropdown>
     <VIBreadcrumbSeparator />
-    <VIBreadcrumbLink> Lessons </VIBreadcrumbLink>
+    <VIBreadcrumbLink :href="`/lesson`"> Lessons </VIBreadcrumbLink>
     <VIBreadcrumbSeparator />
     <VIBreadcrumbLink solid> oh </VIBreadcrumbLink>
   </VIBreadcrumb>

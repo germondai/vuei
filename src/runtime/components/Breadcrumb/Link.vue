@@ -10,7 +10,7 @@
   >
     <component
       :is="solid ? 'span' : NuxtLink"
-      v-bind="solid ? props : {}"
+      v-bind="solid ? {} : props"
       class="flex-1 truncate"
     >
       <slot />
@@ -29,6 +29,7 @@ const {
   solid,
   as = 'li',
   asChild,
+  noPrefetch,
   ...props
 } = defineProps<{ solid?: boolean } & PrimitiveProps & NuxtLinkProps>()
 

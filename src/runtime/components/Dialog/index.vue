@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, unrefElement } from '@vueuse/core'
 import type { ComputedRef, MaybeRef, Ref } from 'vue'
 import {
   computed,
@@ -93,13 +93,13 @@ onClickOutside(
 
     if (!isOpen.value && parentIsOpen && !parentIsOpen.value) return
 
-    const clickedElement = event.target as HTMLElement | null
-    const contentElement = content.value
+    const clickedEl = event.target as HTMLElement | null
+    const contentEl = unrefElement(content)
 
-    if (!contentElement || !clickedElement) return
+    if (!contentEl || !clickedEl) return
 
-    const contentZIndex = getEffectiveZIndex(contentElement)
-    const clickedZIndex = getEffectiveZIndex(clickedElement)
+    const contentZIndex = getEffectiveZIndex(contentEl)
+    const clickedZIndex = getEffectiveZIndex(clickedEl)
 
     if (clickedZIndex > contentZIndex) return
 

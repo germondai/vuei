@@ -51,6 +51,7 @@ const {
   disabled,
   as: primitiveAs = 'button',
   asChild,
+  noPrefetch,
   ...linkProps
 } = defineProps<ButtonProps & PrimitiveProps & NuxtLinkProps>()
 
