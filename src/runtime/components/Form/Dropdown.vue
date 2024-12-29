@@ -2,8 +2,8 @@
   <Popover v-model:isOpen="isOpen">
     <PopoverTrigger
       ref="trigger"
-      class="relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors text-left cursor-pointer shdw"
-      :style
+      v-bind="$attrs"
+      :class="cn(baseClass.trigger, sizes[size])"
     >
       <span class="flex gap-4 items-center truncate">
         <Icon v-if="selected.icon" :name="selected.icon" class="size-6" />
@@ -16,7 +16,7 @@
       </span>
     </PopoverTrigger>
     <PopoverContent
-      class="rounded-lg bg-primary-900 shdw overflow-hidden"
+      :class="cn(baseClass.content)"
       :style="{ width: `${triggerWidth}px` }"
     >
       <div
@@ -29,8 +29,12 @@
         <input
           :id="id"
           v-model="search"
-          class="w-full pl-10 px-2 bg-transparent rounded-t-lg outline-0"
-          :style
+          :class="
+            cn(
+              'w-full pl-10 px-2 bg-transparent rounded-t-lg outline-0',
+              sizes[size],
+            )
+          "
           :placeholder="searchPlaceholder"
         />
       </div>
@@ -43,11 +47,13 @@
         <div
           v-for="opt in filteredOptions"
           :key="opt.id"
-          :class="[
-            'cursor-pointer flex gap-4 items-center relative select-none px-4 transition-colors',
-            isActive(opt) ? 'bg-primary-700 ' : 'hover:bg-primary-800 ',
-          ]"
-          :style
+          :class="
+            cn(
+              'cursor-pointer flex gap-4 items-center relative select-none px-4 transition-colors',
+              isActive(opt) ? 'bg-primary-700' : 'hover:bg-primary-800',
+              sizes[size],
+            )
+          "
           @click="selectOption(opt)"
         >
           <Icon v-if="opt.icon" :name="opt.icon" class="size-6" />
@@ -63,13 +69,30 @@
 
 <script lang="ts" setup generic="T">
 import { useElementBounding } from '@vueuse/core'
+import type { ClassValue } from 'clsx'
 import { computed, ref, useId, useTemplateRef } from 'vue'
 import type { OptionItem } from '../../../module'
-import { searchObjectByFieldValues } from '../../utils/helpers'
+import { cn, searchObjectByFieldValues } from '../../utils/helpers'
 import PopoverContent from '../Popover/Content.vue'
 import Popover from '../Popover/index.vue'
 import PopoverTrigger from '../Popover/Trigger.vue'
 import { Icon } from '#components'
+
+type Size = 'sm' | 'md' | 'lg'
+
+defineOptions({ inheritAttrs: false })
+
+const baseClass: Record<'trigger' | 'content', ClassValue> = {
+  trigger:
+    'relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors text-left cursor-pointer shdw',
+  content: 'rounded-lg bg-primary-900 shdw overflow-hidden',
+}
+
+const sizes: Record<Size, ClassValue> = {
+  sm: 'py-2',
+  md: 'py-2.5',
+  lg: 'py-3',
+}
 
 const id = useId()
 
@@ -85,7 +108,7 @@ const {
 } = defineProps<{
   selectedItem: OptionItem<T> | null
   options: OptionItem<T>[]
-  size?: 'sm' | 'md' | 'lg'
+  size?: Size
   visibleResultsCount?: number
   searchPlaceholder?: string
   searchable?: boolean
@@ -123,9 +146,4 @@ const { width: triggerWidth, height: triggerHeight } =
 const isOpen = ref<boolean>(false)
 
 const search = ref<string>('')
-
-const style = computed(() => {
-  const val = `${size === 'lg' ? 0.75 : size === 'sm' ? 0.5 : 0.625}rem`
-  return { paddingTop: val, paddingBottom: val }
-})
 </script>
