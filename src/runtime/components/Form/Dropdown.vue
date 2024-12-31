@@ -4,16 +4,19 @@
       ref="trigger"
       v-bind="$attrs"
       :class="cn(baseClass.trigger, sizes[size])"
+      asChild
     >
-      <span class="flex gap-4 items-center truncate">
-        <Icon v-if="selected.icon" :name="selected.icon" class="size-6" />
-        {{ selected.name }}
-      </span>
-      <span
-        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-      >
-        <Icon name="ph:caret-up-down-fill" class="size-6" />
-      </span>
+      <button>
+        <span class="flex gap-4 items-center truncate">
+          <Icon v-if="selected.icon" :name="selected.icon" class="size-6" />
+          {{ selected.name }}
+        </span>
+        <span
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+        >
+          <Icon name="ph:caret-up-down-fill" class="size-6" />
+        </span>
+      </button>
     </PopoverTrigger>
     <PopoverContent
       :class="cn(baseClass.content)"
@@ -31,7 +34,7 @@
           v-model="search"
           :class="
             cn(
-              'w-full pl-10 px-2 bg-transparent rounded-t-lg outline-0',
+              'w-full pl-10 pr-2 bg-transparent rounded-t-lg outline-0',
               sizes[size],
             )
           "
@@ -84,7 +87,7 @@ defineOptions({ inheritAttrs: false })
 
 const baseClass: Record<'trigger' | 'content', ClassValue> = {
   trigger:
-    'relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors text-left cursor-pointer shdw',
+    'relative w-full pl-3 pr-10 rounded-lg bg-primary-900 hover:bg-primary-800 transition-colors shdw',
   content: 'rounded-lg bg-primary-900 shdw overflow-hidden',
 }
 
