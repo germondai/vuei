@@ -90,6 +90,10 @@
     <VIButton variant="outline" size="icon" icon="mdi:account" />
     <VIButton variant="outline" size="xl" icon="mdi:account" />
   </VIContainer>
+  <VIContainer>
+    <VIProgress :progress="50" />
+    <VIProgress :progress="50" keep />
+  </VIContainer>
   <VICountUp :number="300" />
   <VITypeWriter :typeArray="['Is this...', 'working?']" />
   <VIRulerX />
