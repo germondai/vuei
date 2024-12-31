@@ -143,7 +143,7 @@ export const NotificationType: Enumize<NotificationType> = {
   SYSTEM: 'SYSTEM',
 } as const
 
-export type ButtonSizes = 'sm' | 'md' | 'lg' | 'xl' | 'icon'
+export type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'icon'
 export type ButtonVariants =
   | 'primary'
   | 'secondary'

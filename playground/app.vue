@@ -75,6 +75,8 @@
     <VIButton variant="ghost">Coze</VIButton>
     <VIButton variant="link">Coze</VIButton>
     <VIButton disabled @click="console.log('disabled')"> Disabled </VIButton>
+    <VIButton size="xs" icon="mdi:account">Coze</VIButton>
+    <VIButton size="xs">Coze</VIButton>
     <VIButton size="sm" icon="mdi:account">Coze</VIButton>
     <VIButton size="sm">Coze</VIButton>
     <VIButton size="md" icon="mdi:account">Coze</VIButton>
@@ -83,7 +85,10 @@
     <VIButton size="lg">Coze</VIButton>
     <VIButton size="xl" icon="mdi:account">Coze</VIButton>
     <VIButton size="xl">Coze</VIButton>
+    <VIButton size="2xl" icon="mdi:account">Coze</VIButton>
+    <VIButton size="2xl">Coze</VIButton>
     <VIButton variant="outline" size="icon" icon="mdi:account" />
+    <VIButton variant="outline" size="xl" icon="mdi:account" />
   </VIContainer>
   <VICountUp :number="300" />
   <VITypeWriter :typeArray="['Is this...', 'working?']" />

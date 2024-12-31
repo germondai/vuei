@@ -71,17 +71,21 @@ const disabledClass = 'cursor-not-allowed'
 const sizes: Record<'button' | 'icon', Record<ButtonSizes, string>> = {
   button: {
     icon: 'p-2 rounded-lg text-base',
+    xs: 'px-1 py-0.5 rounded-sm text-xs',
     sm: 'px-2 py-1 rounded-md text-sm',
     md: 'px-4 py-2 rounded-lg text-base',
     lg: 'px-6 py-3 rounded-xl text-lg',
     xl: 'px-8 py-4 rounded-2xl text-xl',
+    '2xl': 'px-10 py-5 rounded-3xl text-2xl',
   },
   icon: {
     icon: 'size-5',
+    xs: 'size-3',
     sm: 'size-4',
     md: 'size-5',
     lg: 'size-6',
     xl: 'size-7',
+    '2xl': 'size-8',
   },
 }
 
