@@ -67,13 +67,23 @@
       icon: { name: 'mdi:earth', color: 'blue' },
     }"
   />
-  <VIContainer>
+  <VIContainer class="flex flex-col gap-2">
     <VIButton variant="primary">Coze</VIButton>
     <VIButton variant="secondary">Coze</VIButton>
     <VIButton variant="destructive">Coze</VIButton>
     <VIButton variant="outline">Coze</VIButton>
     <VIButton variant="ghost">Coze</VIButton>
     <VIButton variant="link">Coze</VIButton>
+    <VIButton disabled @click="console.log('disabled')"> Disabled </VIButton>
+    <VIButton size="sm" icon="mdi:account">Coze</VIButton>
+    <VIButton size="sm">Coze</VIButton>
+    <VIButton size="md" icon="mdi:account">Coze</VIButton>
+    <VIButton size="md">Coze</VIButton>
+    <VIButton size="lg" icon="mdi:account">Coze</VIButton>
+    <VIButton size="lg">Coze</VIButton>
+    <VIButton size="xl" icon="mdi:account">Coze</VIButton>
+    <VIButton size="xl">Coze</VIButton>
+    <VIButton variant="outline" size="icon" icon="mdi:account" />
   </VIContainer>
   <VICountUp :number="300" />
   <VITypeWriter :typeArray="['Is this...', 'working?']" />
