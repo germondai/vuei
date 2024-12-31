@@ -73,15 +73,15 @@ const sizes: Record<'button' | 'icon', Record<ButtonSizes, string>> = {
     icon: 'p-2 rounded-lg text-base',
     sm: 'px-2 py-1 rounded-md text-sm',
     md: 'px-4 py-2 rounded-lg text-base',
-    lg: 'px-8 py-4 rounded-xl text-lg',
-    xl: 'px-12 py-6 rounded-2xl text-xl',
+    lg: 'px-6 py-3 rounded-xl text-lg',
+    xl: 'px-8 py-4 rounded-2xl text-xl',
   },
   icon: {
     icon: 'size-5',
     sm: 'size-4',
     md: 'size-5',
     lg: 'size-6',
-    xl: 'size-8',
+    xl: 'size-7',
   },
 }
 
