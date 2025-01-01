@@ -90,9 +90,23 @@
     <VIButton variant="outline" size="icon" icon="mdi:account" />
     <VIButton variant="outline" size="xl" icon="mdi:account" />
   </VIContainer>
-  <VIContainer>
+  <VIContainer class="flex flex-col gap-2">
     <VIProgress :progress="50" />
     <VIProgress :progress="50" keep />
+  </VIContainer>
+  <VIContainer class="flex items-center gap-2">
+    <VIAvatar>
+      <VIAvatarImage src="https://skillicons.dev/icons?i=ts" />
+      <VIAvatarFallback>COZE</VIAvatarFallback>
+    </VIAvatar>
+    <VIAvatar>
+      <VIAvatarImage src="/abc.png" />
+      <VIAvatarFallback>COZE</VIAvatarFallback>
+    </VIAvatar>
+    <VIAvatar>
+      <VIAvatarImage />
+      <VIAvatarFallback>COZECOZE</VIAvatarFallback>
+    </VIAvatar>
   </VIContainer>
   <VICountUp :number="300" />
   <VITypeWriter :typeArray="['Is this...', 'working?']" />
