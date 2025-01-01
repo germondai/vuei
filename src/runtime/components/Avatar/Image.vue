@@ -4,9 +4,9 @@ import type { PrimitiveProps } from '../../../module'
 import Primitive from '../Primitive/index.vue'
 import { NuxtImg } from '#components'
 
-const { as = NuxtImg, asChild, ...props } = defineProps<{} & PrimitiveProps>()
-
 const { imageLoadingStatus } = injectAvatarContext()
+
+const { as = NuxtImg, asChild, ...props } = defineProps<{} & PrimitiveProps>()
 </script>
 
 <template>
