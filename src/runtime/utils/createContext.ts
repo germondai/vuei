@@ -1,6 +1,7 @@
 // https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/shared/createContext.ts
 
 import { type InjectionKey, inject, provide } from 'vue'
+import { createError } from '#app'
 
 /**
  * @param providerComponentName - The name(s) of the component(s) providing the context.
@@ -38,15 +39,16 @@ export function createContext<ContextValue>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (context === null) return context as any
 
-    throw new Error(
-      `Injection \`${injectionKey.toString()}\` not found. Component must be used within ${
+    throw createError({
+      message: `Injection \`${injectionKey.toString()}\` not found. Component must be used within ${
         Array.isArray(providerComponentName)
           ? `one of the following components: ${providerComponentName.join(
               ', ',
             )}`
           : `\`${providerComponentName}\``
       }`,
-    )
+      fatal: false,
+    })
   }
 
   const provideContext = (contextValue: ContextValue) => {
