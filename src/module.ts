@@ -62,6 +62,8 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.options.css.push(resolve('./runtime/assets/style.css'))
     }
 
+    await installModule('@nuxt/icon')
+    await installModule('@nuxt/image')
     await installModule(
       '@nuxtjs/tailwindcss',
       defu(
@@ -87,7 +89,6 @@ export default defineNuxtModule<ModuleOptions>({
         nuxt.options.tailwindcss,
       ),
     )
-    await installModule('@nuxt/icon')
 
     addImports({
       name: 'useToast',
