@@ -33,9 +33,6 @@ export function createContext<ContextValue>(
 
   /**
    * @param fallback The context value to return if the injection fails.
-   *
-   * @throws When context injection failed and no fallback is specified.
-   * This happens when the component injecting the context is not a child of the root component providing the context.
    */
   const injectContext = <T extends Partial<ContextValue>>(
     fallback?: T,
