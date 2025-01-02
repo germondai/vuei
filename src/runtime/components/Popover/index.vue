@@ -1,13 +1,28 @@
-<template>
-  <slot />
-</template>
+<script lang="ts">
+import { onClickOutside } from '@vueuse/core'
+import {
+  type MaybeRef,
+  type Ref,
+  type WritableComputedRef,
+  computed,
+  isRef,
+  ref,
+} from 'vue'
+import { createContext } from '../../utils/createContext'
+
+export type PopoverContext = {
+  trigger: Ref<HTMLElement | null>
+  content: Ref<HTMLElement | null>
+  isOpen: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
+}
+
+export const [injectPopoverContext, providePopoverContext] =
+  createContext<PopoverContext>('Popover')
+</script>
 
 <script lang="ts" setup>
-import { onClickOutside } from '@vueuse/core'
-import { type MaybeRef, computed, isRef, provide, ref } from 'vue'
-
-const content = ref<HTMLElement>()
-const trigger = ref<HTMLElement>()
+const content = ref<HTMLElement | null>(null)
+const trigger = ref<HTMLElement | null>(null)
 
 const { isOpen: isO, required } = defineProps<{
   isOpen?: MaybeRef<boolean>
@@ -40,7 +55,13 @@ const toggle = () => (isOpen.value = !isOpen.value)
 
 defineExpose({ open, close, toggle })
 
-provide('popoverTrigger', trigger)
-provide('popoverContent', content)
-provide('popoverState', isOpen)
+providePopoverContext({
+  trigger,
+  content,
+  isOpen,
+})
 </script>
+
+<template>
+  <slot />
+</template>

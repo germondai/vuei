@@ -18,17 +18,20 @@
 
 <script lang="ts" setup>
 import { useElementBounding, useWindowSize } from '@vueuse/core'
-import { type HTMLAttributes, type Ref, computed, inject } from 'vue'
+import { type HTMLAttributes, computed } from 'vue'
+import { injectPopoverContext } from './index.vue'
 import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
-
-defineOptions({ inheritAttrs: false })
 
 const baseClass: Record<'background' | 'content', string> = {
   background: 'fixed inset-0 size-full z-[1000] pointer-events-none',
   content: 'fixed overflow-y-auto pointer-events-auto z-[1001]',
 }
+
+defineOptions({ inheritAttrs: false })
+
+const { trigger, content, isOpen } = injectPopoverContext()
 
 const {
   transition = 'fade',
@@ -42,10 +45,6 @@ const {
     backgroundClass?: HTMLAttributes['class']
   } & PrimitiveProps
 >()
-
-const isOpen = inject<Ref<boolean>>('popoverState')
-const trigger = inject<Ref<HTMLElement>>('popoverTrigger')
-const content = inject<Ref<HTMLElement>>('popoverContent')
 
 const { width: windowWidth, height: windowHeight } = useWindowSize()
 

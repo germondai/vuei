@@ -10,16 +10,14 @@
 </template>
 
 <script lang="ts" setup>
-import { type Ref, inject } from 'vue'
+import { injectPopoverContext } from './index.vue'
 import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
 const baseClass = 'cursor-pointer'
 
+const { trigger, isOpen } = injectPopoverContext()
+
 const { ...props } = defineProps<{} & PrimitiveProps>()
-
-const isOpen = inject<Ref<boolean>>('popoverState')
-
-const trigger = inject<Ref<HTMLElement>>('popoverTrigger')
 </script>
