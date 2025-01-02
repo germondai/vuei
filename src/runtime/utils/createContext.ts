@@ -9,7 +9,7 @@ import { type InjectionKey, inject, provide } from 'vue'
  *
  * @param contextName The description for injection key symbol.
  */
-export function createContext<ContextValue>(
+export function createContext<ContextValue extends object>(
   providerComponentName: string | string[],
   contextName?: string,
 ) {
@@ -21,7 +21,7 @@ export function createContext<ContextValue>(
   const injectionKey: InjectionKey<ContextValue | null> =
     Symbol(symbolDescription)
 
-  type injectContextReturn<T extends Partial<ContextValue>> = {
+  type InjectContextReturn<T extends Partial<ContextValue>> = {
     [K in keyof ContextValue]: K extends keyof T
       ? T[K] extends Exclude<ContextValue[K], undefined>
         ? T[K] extends Exclude<ContextValue[K], null | undefined>
@@ -36,9 +36,9 @@ export function createContext<ContextValue>(
    */
   const injectContext = <T extends Partial<ContextValue>>(
     fallback?: T,
-  ): injectContextReturn<T> => {
+  ): InjectContextReturn<T> => {
     const context = inject(injectionKey, { ...fallback } as ContextValue)
-    return context as injectContextReturn<T>
+    return context as InjectContextReturn<T>
   }
 
   const provideContext = (contextValue: ContextValue): ContextValue => {
