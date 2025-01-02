@@ -54,9 +54,9 @@
     <div>holo tilt</div>
   </VIHoloTilt>
   <VIFlareItem>helou?</VIFlareItem>
-  <VISwitch v-model="tgl" />
+  <VISwitch v-model:checked="tgl" />
   <VISwitch />
-  <VISwitch modelValue />
+  <VISwitch checked />
   <VIFlareCont class="p-16">
     <VIHoloTilt>
       <VIFlareItem :before="{ color: '#ff0000', size: 600 }">
@@ -145,11 +145,20 @@
           <p>Editing: {{ edit }}</p>
           <VIFormDropdown
             v-model:selectedItem="selectedItem"
-            :options
+            :items
             searchable
+            collapsible
           />
+          <VIFormDropdown
+            v-model:selectedItem="selectedItem"
+            :items
+            searchable
+            required
+          />
+          <VIFormFilter v-model:selectedItem="selectedItem" :items />
+          <VIFormFilter v-model:selectedItem="selectedItem" :items required />
           <div class="flex items-center gap-2">
-            <VISwitch v-model="toggle" />
+            <VISwitch v-model:checked="toggle" />
             <VIButton @click="toggle = true">true</VIButton>
             <VIButton @click="toggle = false">false</VIButton>
             <p>Switch theme</p>
@@ -192,7 +201,7 @@ import { VICard } from '#components'
 
 const { addToast } = useToast()
 
-const options: OptionItem[] = [
+const items: OptionItem[] = [
   {
     id: '1',
     name: 'coze',
