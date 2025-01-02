@@ -19,9 +19,9 @@ const { size = 'lg', ...props } = defineProps<
 const baseClass = 'relative mx-auto'
 
 const sizes: Partial<Record<ContainerSize, ClassValue>> = {}
-sizes.xs = 'w-[98%] xs:w-[95%] md:max-w-screen-md'
-sizes.sm = sizes.xs + 'md:w-11/12 lg:max-w-screen-lg'
-sizes.md = sizes.sm + 'lg:w-5/6 xl:max-w-screen-xl'
-sizes.lg = sizes.md + 'xl:w-4/5 2xl:max-w-screen-2xl'
-sizes.xl = sizes.lg + '3xl:max-w-screen-3xl'
+sizes.xs = `w-[98%] xs:w-[95%] md:max-w-screen-md`
+sizes.sm = `${sizes.xs} md:w-11/12 lg:max-w-screen-lg`
+sizes.md = `${sizes.sm} lg:w-5/6 xl:max-w-screen-xl`
+sizes.lg = `${sizes.md} xl:w-4/5 2xl:max-w-screen-2xl`
+sizes.xl = `${sizes.lg} 3xl:max-w-screen-3xl`
 </script>
