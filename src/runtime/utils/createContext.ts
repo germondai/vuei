@@ -1,7 +1,6 @@
-// https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/shared/createContext.ts
+// inspired by: https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/shared/createContext.ts
 
 import { type InjectionKey, inject, provide } from 'vue'
-import { createError } from '#app'
 
 /**
  * @param providerComponentName - The name(s) of the component(s) providing the context.
@@ -22,36 +21,30 @@ export function createContext<ContextValue>(
   const injectionKey: InjectionKey<ContextValue | null> =
     Symbol(symbolDescription)
 
+  type injectContextReturn<T extends Partial<ContextValue>> = {
+    [K in keyof ContextValue]: K extends keyof T
+      ? T[K] extends Exclude<ContextValue[K], undefined>
+        ? T[K] extends Exclude<ContextValue[K], null | undefined>
+          ? Exclude<ContextValue[K], null | undefined>
+          : Exclude<ContextValue[K], undefined>
+        : ContextValue[K] | undefined
+      : ContextValue[K] | undefined
+  }
+
   /**
    * @param fallback The context value to return if the injection fails.
    *
    * @throws When context injection failed and no fallback is specified.
    * This happens when the component injecting the context is not a child of the root component providing the context.
    */
-  const injectContext = <
-    T extends ContextValue | null | undefined = ContextValue,
-  >(
+  const injectContext = <T extends Partial<ContextValue>>(
     fallback?: T,
-  ): T extends null ? ContextValue | null : ContextValue => {
-    const context = inject(injectionKey, fallback)
-    if (context) return context
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (context === null) return context as any
-
-    throw createError({
-      message: `Injection \`${injectionKey.toString()}\` not found. Component must be used within ${
-        Array.isArray(providerComponentName)
-          ? `one of the following components: ${providerComponentName.join(
-              ', ',
-            )}`
-          : `\`${providerComponentName}\``
-      }`,
-      fatal: false,
-    })
+  ): injectContextReturn<T> => {
+    const context = inject(injectionKey, { ...fallback } as ContextValue)
+    return { ...fallback, ...context } as injectContextReturn<T>
   }
 
-  const provideContext = (contextValue: ContextValue) => {
+  const provideContext = (contextValue: ContextValue): ContextValue => {
     provide(injectionKey, contextValue)
     return contextValue
   }
