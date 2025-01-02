@@ -54,7 +54,9 @@
     <div>holo tilt</div>
   </VIHoloTilt>
   <VIFlareItem>helou?</VIFlareItem>
-  <VIButtonToggle v-model="tgl" />
+  <VISwitch v-model="tgl" />
+  <VISwitch />
+  <VISwitch modelValue />
   <VIFlareCont class="p-16">
     <VIHoloTilt>
       <VIFlareItem :before="{ color: '#ff0000', size: 600 }">
@@ -147,7 +149,9 @@
             searchable
           />
           <div class="flex items-center gap-2">
-            <VIButtonToggle v-model:modelValue="toggle" />
+            <VISwitch v-model="toggle" />
+            <VIButton @click="toggle = true">true</VIButton>
+            <VIButton @click="toggle = false">false</VIButton>
             <p>Switch theme</p>
           </div>
           <VICardFooter class="justify-end">
