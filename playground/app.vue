@@ -106,6 +106,7 @@
   </VIContainer>
   <VIContainer class="flex flex-col gap-2">
     <VIProgress :progress="50" />
+    <VISeparator />
     <VIProgress :progress="50" keep />
   </VIContainer>
   <VIContainer class="flex items-center gap-2">
