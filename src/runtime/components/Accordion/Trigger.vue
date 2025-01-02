@@ -2,7 +2,7 @@
   <Primitive
     v-bind="props"
     ref="trigger"
-    class="cursor-pointer"
+    :class="cn(baseClass)"
     @click="isOpen = !isOpen"
   >
     <slot />
@@ -10,13 +10,14 @@
 </template>
 
 <script lang="ts" setup>
-import { type Ref, inject } from 'vue'
+import { injectAccordionContext } from './index.vue'
 import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
+const baseClass = 'cursor-pointer'
+
+const { trigger, isOpen } = injectAccordionContext()
+
 const { ...props } = defineProps<{} & PrimitiveProps>()
-
-const isOpen = inject<Ref<boolean>>('accordionState')
-
-const trigger = inject<Ref<HTMLElement>>('accordionTrigger')
 </script>

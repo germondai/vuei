@@ -2,22 +2,22 @@
   <Primitive
     v-bind="props"
     ref="content"
-    class="w-full h-0 overflow-hidden transition-all"
-    :class="{ 'h-auto': isOpen }"
-    :style="!isOpen && { padding: 'unset' }"
+    :class="cn(baseClass, { 'h-auto': isOpen })"
+    :style="!isOpen && { padding: 'unset', margin: 'unset' }"
   >
     <slot />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
-import { type Ref, inject } from 'vue'
+import { injectAccordionContext } from './index.vue'
 import type { PrimitiveProps } from '../../../module'
+import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
+const baseClass = 'w-full h-0 overflow-hidden transition-all'
+
+const { content, isOpen } = injectAccordionContext()
+
 const { ...props } = defineProps<{} & PrimitiveProps>()
-
-const isOpen = inject<Ref<boolean>>('accordionState')
-
-const content = inject<Ref<HTMLElement>>('accordionContent')
 </script>
