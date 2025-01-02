@@ -38,7 +38,7 @@ export function createContext<ContextValue>(
     fallback?: T,
   ): injectContextReturn<T> => {
     const context = inject(injectionKey, { ...fallback } as ContextValue)
-    return { ...fallback, ...context } as injectContextReturn<T>
+    return context as injectContextReturn<T>
   }
 
   const provideContext = (contextValue: ContextValue): ContextValue => {
