@@ -1,29 +1,43 @@
-<template>
-  <slot />
-</template>
+<script lang="ts">
+import { onClickOutside, unrefElement } from '@vueuse/core'
+import type { ComputedRef, MaybeRef, Ref, WritableComputedRef } from 'vue'
+import { computed, isRef, onUnmounted, ref, useId, watch } from 'vue'
+import { createContext } from '../../utils/createContext'
+import { getEffectiveZIndex } from '../../utils/helpers'
+
+export type DialogStates = (
+  | { id: string; isOpen: boolean }
+  | null
+  | undefined
+)[]
+
+export type DialogContext = {
+  trigger: Ref<HTMLElement | null>
+  content: Ref<HTMLElement | null>
+  isOpen: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
+  isClose: Ref<boolean>
+  nest: boolean
+  states: Ref<DialogStates>
+  childIsOpen: ComputedRef<boolean>
+}
+
+export const [injectDialogContext, provideDialogContext] =
+  createContext<DialogContext>('Dialog')
+</script>
 
 <script lang="ts" setup>
-import { onClickOutside, unrefElement } from '@vueuse/core'
-import type { ComputedRef, MaybeRef, Ref } from 'vue'
-import {
-  computed,
-  inject,
-  isRef,
-  onUnmounted,
-  provide,
-  ref,
-  useId,
-  watch,
-} from 'vue'
-import { getEffectiveZIndex } from '../../utils/helpers'
+const {
+  isOpen: parentIsOpen,
+  nest: parentNest,
+  states,
+} = injectDialogContext({
+  states: ref([]),
+})
 
 const id = useId()
 
-const trigger = ref<HTMLElement>()
-const content = ref<HTMLElement>()
-
-const parentIsOpen = inject<Ref<boolean> | null>('dialogState', null)
-const parentNest = inject<boolean | null>('dialogNest', null)
+const trigger = ref<HTMLElement | null>(null)
+const content = ref<HTMLElement | null>(null)
 
 const {
   isOpen: isO,
@@ -49,9 +63,6 @@ const isOpen = computed({
   },
 })
 
-type dialogStates = Ref<({ id: string; isOpen: boolean } | null | undefined)[]>
-
-const states = inject<dialogStates>('dialogStates', ref([]))
 states.value = !states.value.some((state) => state?.id === id)
   ? [...states.value, { id, isOpen: isOpen as unknown as boolean }]
   : states.value
@@ -59,17 +70,16 @@ states.value = !states.value.some((state) => state?.id === id)
 const childIsOpen = computed(() => {
   const currentIndex = states.value.findIndex((state) => state?.id === id)
 
-  return states.value
-    .filter((_, index) => index >= currentIndex)
-    .some((state) => state?.isOpen === true)
+  const nextState = states.value[currentIndex + 1]
+
+  if (!nextState) return false
+
+  return nextState?.isOpen ?? false
 })
 
 onUnmounted(
   () => (states.value = states.value.filter((state) => state?.id !== id)),
 )
-
-provide<ComputedRef<boolean>>('dialogChildState', childIsOpen)
-provide<dialogStates>('dialogStates', states)
 
 const isClose = ref<boolean>(false)
 
@@ -89,18 +99,14 @@ const closeAll = async () => {
 onClickOutside(
   content,
   (event) => {
-    if (required) return
-
-    if (!isOpen.value && parentIsOpen && !parentIsOpen.value) return
+    if (required || !isOpen.value || childIsOpen.value) return
 
     const clickedEl = event.target as HTMLElement | null
     const contentEl = unrefElement(content)
-
     if (!contentEl || !clickedEl) return
 
     const contentZIndex = getEffectiveZIndex(contentEl)
     const clickedZIndex = getEffectiveZIndex(clickedEl)
-
     if (clickedZIndex > contentZIndex) return
 
     isOpen.value = false
@@ -108,16 +114,29 @@ onClickOutside(
   { ignore: [trigger] },
 )
 
-watch(isOpen, () => {
-  if (!isClose.value && !nest && !isOpen.value && parentIsOpen?.value)
-    parentIsOpen.value = true
-})
+watch(
+  isOpen,
+  () =>
+    !isClose.value &&
+    !nest &&
+    !isOpen.value &&
+    parentIsOpen?.value &&
+    (parentIsOpen.value = true),
+)
 
 defineExpose({ open, close, toggle, closeAll })
 
-provide('dialogTrigger', trigger)
-provide('dialogContent', content)
-provide('dialogState', isOpen)
-provide('dialogIsClose', isClose)
-provide('dialogNest', nest)
+provideDialogContext({
+  trigger,
+  content,
+  isOpen,
+  isClose,
+  nest,
+  states,
+  childIsOpen,
+})
 </script>
+
+<template>
+  <slot />
+</template>

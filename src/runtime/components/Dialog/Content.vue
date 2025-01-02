@@ -19,26 +19,15 @@
 </template>
 
 <script lang="ts" setup>
-import { type ComputedRef, type HTMLAttributes, type Ref, inject } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { injectDialogContext } from './index.vue'
 import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
 defineOptions({ inheritAttrs: false })
 
-const isOpen = inject<Ref<boolean>>('dialogState')
-const content = inject<Ref<HTMLElement> | null>('dialogContent')
-
-const childIsOpen = inject<ComputedRef<boolean> | boolean>(
-  'dialogChildState',
-  false,
-)
-
-const baseClass: Record<'background' | 'content', string> = {
-  background:
-    'fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]',
-  content: 'overflow-y-auto max-h-full',
-}
+const { isOpen, content, childIsOpen } = injectDialogContext()
 
 const {
   transition = 'fade',
@@ -50,4 +39,10 @@ const {
     backgroundClass?: HTMLAttributes['class']
   } & PrimitiveProps
 >()
+
+const baseClass: Record<'background' | 'content', string> = {
+  background:
+    'fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]',
+  content: 'overflow-y-auto max-h-full',
+}
 </script>

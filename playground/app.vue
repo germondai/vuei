@@ -2,7 +2,7 @@
   <VIButton icon="mdi:pencil">Click me!</VIButton>
   <VIDialog>
     <VIDialogTrigger>helou dialog</VIDialogTrigger>
-    <VIDialogContent backgroundClass="bg-red-200/80" asChild>
+    <VIDialogContent backgroundClass="bg-red-200/20" asChild>
       <VIContainer size="xs" class="p-4 rounded-lg">
         <VICardTitle>Dialog content</VICardTitle>
         <VIPopover>
@@ -11,6 +11,20 @@
             <div>Popover content</div>
           </VIPopoverContent>
         </VIPopover>
+        <VIDialog>
+          <VIDialogTrigger>helou dialog</VIDialogTrigger>
+          <VIDialogContent backgroundClass="bg-green-200/20" asChild>
+            <VIContainer size="xs" class="pt-64 p-4 rounded-lg">
+              <VICardTitle>Dialog content</VICardTitle>
+              <VIPopover>
+                <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
+                <VIPopoverContent class="p-4 rounded-lg">
+                  <div>Popover content</div>
+                </VIPopoverContent>
+              </VIPopover>
+            </VIContainer>
+          </VIDialogContent>
+        </VIDialog>
       </VIContainer>
     </VIDialogContent>
   </VIDialog>
