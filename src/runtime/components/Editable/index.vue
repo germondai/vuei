@@ -1,35 +1,25 @@
 <template>
-  <Primitive v-bind="props" class="group/EditableWrapper relative">
+  <Primitive :as :asChild class="group/EditableWrapper relative">
     <button
       v-if="allowed"
       class="absolute top-2 right-2 flex items-center gap-1.5 text-primary-50/80 hover:text-primary-50 opacity-0 group-hover/EditableWrapper:opacity-100 transition-all z-20"
-      @click="value = !value"
+      @click="edit = !edit"
     >
-      <Icon :name="value ? 'mdi:pencil-off' : 'mdi:pencil'" class="size-5" />
+      <Icon :name="edit ? 'mdi:pencil-off' : 'mdi:pencil'" class="size-5" />
     </button>
-    <slot v-bind="{ edit: value }" />
+    <slot v-bind="{ edit }" />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
-import { type MaybeRef, computed, isRef, ref } from 'vue'
 import type { PrimitiveProps } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import Primitive from '../Primitive/index.vue'
 
-const { edit, allowed, ...props } = defineProps<
-  {
-    edit?: MaybeRef<boolean>
-    allowed?: boolean
-  } & PrimitiveProps
+const { allowed, as, asChild, ...props } = defineProps<
+  { modelValue?: boolean; allowed?: boolean } & PrimitiveProps
 >()
-const emit = defineEmits<{ (e: 'update:edit', value: boolean): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 
-const fallbackValue = ref<boolean>(false)
-const value = computed({
-  get: () => edit || fallbackValue.value,
-  set: (value: boolean) =>
-    edit !== undefined && isRef(edit)
-      ? emit('update:edit', value)
-      : (fallbackValue.value = value),
-})
+const edit = useFallbackModel(props, 'modelValue', emit)
 </script>

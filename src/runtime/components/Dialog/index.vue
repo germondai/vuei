@@ -1,12 +1,13 @@
 <script lang="ts">
 import { onClickOutside, unrefElement } from '@vueuse/core'
-import type { ComputedRef, MaybeRef, Ref, WritableComputedRef } from 'vue'
-import { computed, isRef, onUnmounted, ref, useId, watch } from 'vue'
+import type { ComputedRef, Ref, WritableComputedRef } from 'vue'
+import { computed, onUnmounted, ref, useId, watch } from 'vue'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { createContext } from '../../utils/createContext'
 import { getEffectiveZIndex } from '../../utils/helpers'
 
 export type DialogStates = (
-  | { id: string; isOpen: boolean }
+  | { id: string; opened: boolean }
   | null
   | undefined
 )[]
@@ -14,11 +15,11 @@ export type DialogStates = (
 export type DialogContext = {
   trigger: Ref<HTMLElement | null>
   content: Ref<HTMLElement | null>
-  isOpen: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
+  opened: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
   isClose: Ref<boolean>
   nest: boolean
   states: Ref<DialogStates>
-  childIsOpen: ComputedRef<boolean>
+  childOpened: ComputedRef<boolean>
 }
 
 export const [injectDialogContext, provideDialogContext] =
@@ -27,7 +28,7 @@ export const [injectDialogContext, provideDialogContext] =
 
 <script lang="ts" setup>
 const {
-  isOpen: parentIsOpen,
+  opened: parentOpened,
   nest: parentNest,
   states,
 } = injectDialogContext({
@@ -39,42 +40,33 @@ const id = useId()
 const trigger = ref<HTMLElement | null>(null)
 const content = ref<HTMLElement | null>(null)
 
-const {
-  isOpen: isO,
-  nest,
-  required,
-} = defineProps<{
-  isOpen?: MaybeRef<boolean>
+const { nest, required, ...props } = defineProps<{
+  opened?: boolean
   nest?: boolean
   required?: boolean
 }>()
-const emit = defineEmits<{ (e: 'update:isOpen', value: boolean): void }>()
+const emit = defineEmits<{ (e: 'update:opened', value: boolean): void }>()
 
-const fallbackIsOpen = ref<boolean>(false)
-const isOpen = computed({
-  get: () => isO || fallbackIsOpen.value,
-  set: (value: boolean) => {
-    if (isO !== undefined && isRef(isO)) emit('update:isOpen', value)
-    else fallbackIsOpen.value = value
-
-    if (isClose.value === false && parentIsOpen)
-      parentIsOpen.value =
-        !parentNest && value && parentIsOpen.value ? false : true
+const opened = useFallbackModel(props, 'opened', emit, {
+  onUpdate: (value) => {
+    if (isClose.value === false && parentOpened)
+      parentOpened.value =
+        !parentNest && value && parentOpened.value ? false : true
   },
 })
 
 states.value = !states.value.some((state) => state?.id === id)
-  ? [...states.value, { id, isOpen: isOpen as unknown as boolean }]
+  ? [...states.value, { id, opened: opened as unknown as boolean }]
   : states.value
 
-const childIsOpen = computed(() => {
+const childOpened = computed(() => {
   const currentIndex = states.value.findIndex((state) => state?.id === id)
 
   const nextState = states.value[currentIndex + 1]
 
   if (!nextState) return false
 
-  return nextState?.isOpen ?? false
+  return nextState?.opened ?? false
 })
 
 onUnmounted(
@@ -85,21 +77,21 @@ const isClose = ref<boolean>(false)
 
 const open = () => {
   isClose.value = true
-  isOpen.value = true
+  opened.value = true
   isClose.value = false
 }
-const close = () => (isOpen.value = false)
-const toggle = () => (isOpen.value = !isOpen.value)
+const close = () => (opened.value = false)
+const toggle = () => (opened.value = !opened.value)
 const closeAll = async () => {
   isClose.value = true
-  isOpen.value = false
+  opened.value = false
   isClose.value = false
 }
 
 onClickOutside(
   content,
   (event) => {
-    if (required || !isOpen.value || childIsOpen.value) return
+    if (required || !opened.value || childOpened.value) return
 
     const clickedEl = event.target as HTMLElement | null
     const contentEl = unrefElement(content)
@@ -109,19 +101,19 @@ onClickOutside(
     const clickedZIndex = getEffectiveZIndex(clickedEl)
     if (clickedZIndex > contentZIndex) return
 
-    isOpen.value = false
+    opened.value = false
   },
   { ignore: [trigger] },
 )
 
 watch(
-  isOpen,
+  opened,
   () =>
     !isClose.value &&
     !nest &&
-    !isOpen.value &&
-    parentIsOpen?.value &&
-    (parentIsOpen.value = true),
+    !opened.value &&
+    parentOpened?.value &&
+    (parentOpened.value = true),
 )
 
 defineExpose({ open, close, toggle, closeAll })
@@ -129,11 +121,11 @@ defineExpose({ open, close, toggle, closeAll })
 provideDialogContext({
   trigger,
   content,
-  isOpen,
+  opened,
   isClose,
   nest,
   states,
-  childIsOpen,
+  childOpened,
 })
 </script>
 

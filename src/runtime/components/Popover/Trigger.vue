@@ -3,7 +3,7 @@
     ref="trigger"
     v-bind="props"
     :class="cn(baseClass)"
-    @click="isOpen = !isOpen"
+    @click="opened = !opened"
   >
     <slot />
   </Primitive>
@@ -17,7 +17,7 @@ import Primitive from '../Primitive/index.vue'
 
 const baseClass = 'cursor-pointer'
 
-const { trigger, isOpen } = injectPopoverContext()
+const { trigger, opened } = injectPopoverContext()
 
 const { ...props } = defineProps<{} & PrimitiveProps>()
 </script>

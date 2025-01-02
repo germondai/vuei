@@ -2,8 +2,8 @@
   <Teleport to="#teleports">
     <Transition :name="transition">
       <div
-        v-show="isOpen"
-        v-if="isOpen || childIsOpen"
+        v-show="opened"
+        v-if="opened || childOpened"
         :class="cn(baseClass.background, backgroundClass)"
       >
         <Primitive
@@ -33,7 +33,7 @@ const baseClass: Record<'background' | 'content', string> = {
 
 defineOptions({ inheritAttrs: false })
 
-const { isOpen, content, childIsOpen } = injectDialogContext()
+const { opened, content, childOpened } = injectDialogContext()
 
 const {
   transition = 'fade',

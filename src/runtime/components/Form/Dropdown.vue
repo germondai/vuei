@@ -1,15 +1,19 @@
 <template>
-  <Popover v-model:isOpen="isOpen">
+  <Popover v-model:opened="opened">
     <PopoverTrigger
       ref="trigger"
       v-bind="$attrs"
       :class="cn(baseClass.trigger, sizes[size])"
       asChild
     >
-      <button>
+      <button type="button">
         <span class="flex gap-4 items-center truncate">
-          <Icon v-if="selected.icon" :name="selected.icon" class="size-6" />
-          {{ selected.name }}
+          <Icon
+            v-if="selectedItem.icon"
+            :name="selectedItem.icon"
+            class="size-6"
+          />
+          {{ selectedItem.name }}
         </span>
         <span
           class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
@@ -57,13 +61,13 @@
               sizes[size],
             )
           "
-          @click="selectOption(opt)"
+          @click="selectedItem = opt"
         >
           <Icon v-if="opt.icon" :name="opt.icon" class="size-6" />
           {{ opt.name }}
         </div>
         <div v-if="!filteredOptions.length" class="p-4 opacity-60">
-          No options available.
+          No items available.
         </div>
       </div>
     </PopoverContent>
@@ -73,8 +77,9 @@
 <script lang="ts" setup generic="T">
 import { useElementBounding } from '@vueuse/core'
 import type { ClassValue } from 'clsx'
-import { computed, ref, useId, useTemplateRef } from 'vue'
+import { computed, useId, useTemplateRef } from 'vue'
 import type { OptionItem } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { cn, searchObjectByFieldValues } from '../../utils/helpers'
 import PopoverContent from '../Popover/Content.vue'
 import Popover from '../Popover/index.vue'
@@ -100,17 +105,19 @@ const sizes: Record<Size, ClassValue> = {
 const id = useId()
 
 const {
-  selectedItem,
-  options,
+  items,
   size = 'md',
   visibleResultsCount,
   searchPlaceholder = 'Search...',
   searchable,
   collapsible,
   required,
+  ...props
 } = defineProps<{
-  selectedItem: OptionItem<T> | null
-  options: OptionItem<T>[]
+  selectedItem?: OptionItem<T> | null
+  opened?: boolean
+  search?: string
+  items: OptionItem<T>[]
   size?: Size
   visibleResultsCount?: number
   searchPlaceholder?: string
@@ -121,32 +128,28 @@ const {
 
 const emit = defineEmits<{
   (e: 'update:selectedItem', value: OptionItem<T>): void
+  (e: 'update:opened', value: boolean): void
+  (e: 'update:search', value: string): void
 }>()
 
 const emptyOption: OptionItem<T> = { id: '', name: 'Select an option' }
 
-const selected = computed(
-  () => selectedItem || (!required ? emptyOption : options[0] || emptyOption),
-)
+const selectedItem = useFallbackModel(props, 'selectedItem', emit, {
+  fallback: (val) => (required ? val || items[0] : val || emptyOption),
+  onUpdate: () => collapsible && (opened.value = false),
+})
+const opened = useFallbackModel(props, 'opened', emit)
+const search = useFallbackModel(props, 'search', emit)
 
 const filteredOptions = computed(() => {
-  const baseOptions = !required ? [emptyOption, ...options] : options
+  const baseOptions = !required ? [emptyOption, ...items] : items
   if (!search.value) return baseOptions
   return searchObjectByFieldValues(baseOptions, search.value, ['name', 'id'])
 })
 
-const selectOption = (option: OptionItem<T>) => {
-  emit('update:selectedItem', option)
-  if (collapsible) isOpen.value = false
-}
-
-const isActive = (option: OptionItem<T>) => option.id === selected.value.id
+const isActive = (option: OptionItem<T>) => option.id === selectedItem.value.id
 
 const trigger = useTemplateRef<HTMLElement>('trigger')
 const { width: triggerWidth, height: triggerHeight } =
   useElementBounding(trigger)
-
-const isOpen = ref<boolean>(false)
-
-const search = ref<string>('')
 </script>

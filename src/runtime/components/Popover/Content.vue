@@ -1,7 +1,7 @@
 <template>
   <Teleport to="#teleports">
     <TransitionGroup :name="transition">
-      <template v-if="isOpen">
+      <template v-if="opened">
         <div :class="cn(baseClass.background, backgroundClass)" />
         <Primitive
           ref="content"
@@ -31,7 +31,7 @@ const baseClass: Record<'background' | 'content', string> = {
 
 defineOptions({ inheritAttrs: false })
 
-const { trigger, content, isOpen } = injectPopoverContext()
+const { trigger, content, opened } = injectPopoverContext()
 
 const {
   transition = 'fade',

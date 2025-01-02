@@ -1,21 +1,15 @@
 <script lang="ts">
 import { onClickOutside } from '@vueuse/core'
-import {
-  type MaybeRef,
-  type Ref,
-  type WritableComputedRef,
-  computed,
-  isRef,
-  ref,
-} from 'vue'
+import { type Ref, type WritableComputedRef, ref } from 'vue'
 import type { PrimitiveProps } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { createContext } from '../../utils/createContext'
 import Primitive from '../Primitive/index.vue'
 
 export type AccordionContext = {
   trigger: Ref<HTMLElement | null>
   content: Ref<HTMLElement | null>
-  isOpen: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
+  opened: WritableComputedRef<boolean | Ref<boolean, boolean>, boolean>
 }
 
 export const [injectAccordionContext, provideAccordionContext] =
@@ -26,51 +20,37 @@ export const [injectAccordionContext, provideAccordionContext] =
 const trigger = ref<HTMLElement | null>(null)
 const content = ref<HTMLElement | null>(null)
 
-const {
-  isOpen: isO,
-  required,
-  ...props
-} = defineProps<
-  {
-    isOpen?: MaybeRef<boolean>
-    required?: boolean
-  } & PrimitiveProps
+const { required, as, asChild, ...props } = defineProps<
+  { opened?: boolean; required?: boolean } & PrimitiveProps
 >()
-const emit = defineEmits<{ (e: 'update:isOpen', value: boolean): void }>()
+const emit = defineEmits<{ (e: 'update:opened', value: boolean): void }>()
 
-const fallbackIsOpen = ref<boolean>(false)
-const isOpen = computed({
-  get: () => isO || fallbackIsOpen.value,
-  set: (value: boolean) =>
-    isO !== undefined && isRef(isO)
-      ? emit('update:isOpen', value)
-      : (fallbackIsOpen.value = value),
-})
+const opened = useFallbackModel(props, 'opened', emit)
 
 onClickOutside(
   content,
   () => {
     if (required) return
-    isOpen.value = false
+    opened.value = false
   },
   { ignore: [trigger] },
 )
 
-const open = () => (isOpen.value = true)
-const close = () => (isOpen.value = false)
-const toggle = () => (isOpen.value = !isOpen.value)
+const open = () => (opened.value = true)
+const close = () => (opened.value = false)
+const toggle = () => (opened.value = !opened.value)
 
 defineExpose({ open, close, toggle })
 
 provideAccordionContext({
   trigger,
   content,
-  isOpen,
+  opened,
 })
 </script>
 
 <template>
-  <Primitive v-bind="props">
+  <Primitive :as :asChild>
     <slot />
   </Primitive>
 </template>

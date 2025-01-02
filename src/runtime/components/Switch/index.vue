@@ -2,19 +2,19 @@
   <Primitive
     :as
     :asChild
-    :class="cn(baseClass.root, { 'bg-primary-800': value })"
-    @click="value = !value"
+    :class="cn(baseClass.root, { 'bg-primary-800': checked })"
+    @click="checked = !checked"
   >
     <span
-      :class="cn(baseClass.thumb, thumbClass, { 'translate-x-6': value })"
+      :class="cn(baseClass.thumb, thumbClass, { 'translate-x-6': checked })"
     />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
-import { computed, isRef, ref } from 'vue'
 import type { PrimitiveProps } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
@@ -25,22 +25,15 @@ const baseClass: Record<'root' | 'thumb', ClassValue> = {
 }
 
 const {
-  modelValue: mV,
   thumbClass,
   as = 'button',
   asChild,
+  ...props
 } = defineProps<
-  { modelValue?: boolean; thumbClass?: ClassValue } & PrimitiveProps
+  { checked?: boolean; thumbClass?: ClassValue } & PrimitiveProps
 >()
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
+const emit = defineEmits<{ (e: 'update:checked', value: boolean): void }>()
 
-const fallbackMV = ref<boolean>(false)
-const value = computed({
-  get: () => mV || fallbackMV.value,
-  set: (value: boolean) => {
-    emit('update:modelValue', value)
-    if (!isRef(mV)) fallbackMV.value = value
-  },
-})
+const checked = useFallbackModel(props, 'checked', emit)
 </script>

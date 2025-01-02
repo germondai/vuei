@@ -1,37 +1,47 @@
 <template>
-  <Primitive v-bind="props" :class="cn(baseClass)">
+  <Primitive :as :asChild :class="cn(baseClass.root)">
     <Button
-      v-for="tab in tabs"
-      :key="tab.id"
-      :icon="tab.icon"
+      v-for="item in items"
+      :key="item.id"
+      :icon="item.icon"
       :size
-      :selected="selectedTab.id === tab.id"
-      :variant="selectedTab.id === tab.id ? 'primary' : 'outline'"
-      class="justify-center max-sm:flex-grow"
-      @click="emit('update:selectedTab', tab)"
+      :selected="selectedItem?.id === item.id"
+      :variant="selectedItem?.id === item.id ? 'primary' : 'outline'"
+      :class="cn(baseClass.button)"
+      @click="selectedItem = item"
     >
-      {{ tab.name }}
+      {{ item.name }}
     </Button>
   </Primitive>
 </template>
 
 <script lang="ts" setup generic="T">
+import type { ClassValue } from 'clsx'
 import type { ButtonProps, OptionItem, PrimitiveProps } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { cn } from '../../utils/helpers'
 import Button from '../Button/index.vue'
 import Primitive from '../Primitive/index.vue'
 
-const baseClass = 'flex flex-row gap-2 sm:gap-4 flex-wrap'
+const baseClass: Record<'root' | 'button', ClassValue> = {
+  root: 'flex flex-row gap-2 sm:gap-4 flex-wrap',
+  button: 'justify-center max-sm:flex-grow',
+}
 
-const { selectedTab, tabs, size, ...props } = defineProps<
+const { items, size, required, as, asChild, ...props } = defineProps<
   {
-    selectedTab: OptionItem<T>
-    tabs: OptionItem<T>[]
+    selectedItem?: OptionItem<T> | null
+    items: OptionItem<T>[]
     size?: ButtonProps['size']
+    required?: boolean
   } & PrimitiveProps
 >()
 
 const emit = defineEmits<{
-  (e: 'update:selectedTab', value: OptionItem<T>): void
+  (e: 'update:selectedItem', value: OptionItem<T>): void
 }>()
+
+const selectedItem = useFallbackModel(props, 'selectedItem', emit, {
+  fallback: (val) => (required ? val || items[0] : val || null),
+})
 </script>

@@ -44,10 +44,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useVModel } from '@vueuse/core'
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, useId } from 'vue'
 import type { PrimitiveProps } from '../../../module'
+import { useFallbackModel } from '../../composables/useFallbackModel'
 import { useValidate } from '../../composables/useValidate'
 import { cn } from '../../utils/helpers'
 import FlareItem from '../Flare/Item.vue'
@@ -72,18 +72,18 @@ const {
   field,
   ...props
 } = defineProps<{
+  modelValue?: MV
   flare?: boolean
   schema?: object
   type?: InputHTMLAttributes['type'] | 'textarea'
   label?: boolean
   wrapper?: PrimitiveElProp
   field?: PrimitiveElProp
-  modelValue?: MV
 }>()
 
 const emit = defineEmits<{ (e: 'update:modelValue', value?: MV): void }>()
 
-const value = useVModel(props, 'modelValue', emit)
+const value = useFallbackModel(props, 'modelValue', emit)
 
 const { validateField } = useValidate()
 

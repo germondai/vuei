@@ -2,8 +2,8 @@
   <Primitive
     v-bind="props"
     ref="content"
-    :class="cn(baseClass, { 'h-auto': isOpen })"
-    :style="!isOpen && { padding: 'unset', margin: 'unset' }"
+    :class="cn(baseClass, { 'h-auto': opened })"
+    :style="!opened && { padding: 'unset', margin: 'unset' }"
   >
     <slot />
   </Primitive>
@@ -17,7 +17,7 @@ import Primitive from '../Primitive/index.vue'
 
 const baseClass = 'w-full h-0 overflow-hidden transition-all'
 
-const { content, isOpen } = injectAccordionContext()
+const { content, opened } = injectAccordionContext()
 
 const { ...props } = defineProps<{} & PrimitiveProps>()
 </script>
