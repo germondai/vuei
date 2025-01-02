@@ -15,9 +15,9 @@ import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
+const baseClass = 'cursor-pointer'
+
 const { isOpen, trigger } = injectDialogContext()
 
 const { ...props } = defineProps<{} & PrimitiveProps>()
-
-const baseClass = 'cursor-pointer'
 </script>

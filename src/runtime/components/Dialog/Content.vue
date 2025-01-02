@@ -25,6 +25,12 @@ import type { PrimitiveProps } from '../../../module'
 import { cn } from '../../utils/helpers'
 import Primitive from '../Primitive/index.vue'
 
+const baseClass: Record<'background' | 'content', string> = {
+  background:
+    'fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]',
+  content: 'overflow-y-auto max-h-full',
+}
+
 defineOptions({ inheritAttrs: false })
 
 const { isOpen, content, childIsOpen } = injectDialogContext()
@@ -39,10 +45,4 @@ const {
     backgroundClass?: HTMLAttributes['class']
   } & PrimitiveProps
 >()
-
-const baseClass: Record<'background' | 'content', string> = {
-  background:
-    'fixed inset-0 size-full p-4 grid place-items-center bg-black/80 z-[999]',
-  content: 'overflow-y-auto max-h-full',
-}
 </script>
