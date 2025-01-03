@@ -61,17 +61,12 @@ states.value = !states.value.some((state) => state?.id === id)
 
 const childOpened = computed(() => {
   const currentIndex = states.value.findIndex((state) => state?.id === id)
-
-  const nextState = states.value[currentIndex + 1]
-
-  if (!nextState) return false
-
-  return nextState?.opened ?? false
+  return states.value.slice(currentIndex + 1).some((state) => state?.opened)
 })
 
-onUnmounted(
-  () => (states.value = states.value.filter((state) => state?.id !== id)),
-)
+onUnmounted(() => {
+  states.value = states.value.filter((state) => state?.id !== id)
+})
 
 const isClose = ref<boolean>(false)
 

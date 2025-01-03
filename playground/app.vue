@@ -1,10 +1,10 @@
 <template>
   <VIButton icon="mdi:pencil">Click me!</VIButton>
-  <VIDialog>
-    <VIDialogTrigger>helou dialog</VIDialogTrigger>
+  <VIDialog nest>
+    <VIDialogTrigger>helou dialog zaklad</VIDialogTrigger>
     <VIDialogContent backgroundClass="bg-red-200/20" asChild>
       <VIContainer size="xs" class="p-4 rounded-lg">
-        <VICardTitle>Dialog content</VICardTitle>
+        <VICardTitle>Dialog content zaklad</VICardTitle>
         <VIPopover>
           <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
           <VIPopoverContent class="p-4 rounded-lg">
@@ -12,10 +12,41 @@
           </VIPopoverContent>
         </VIPopover>
         <VIDialog>
-          <VIDialogTrigger>helou dialog</VIDialogTrigger>
+          <VIDialogTrigger>helou dialog 11111</VIDialogTrigger>
           <VIDialogContent backgroundClass="bg-green-200/20" asChild>
             <VIContainer size="xs" class="pt-64 p-4 rounded-lg">
-              <VICardTitle>Dialog content</VICardTitle>
+              <VICardTitle>Dialog content 11111</VICardTitle>
+              <VIPopover>
+                <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
+                <VIPopoverContent class="p-4 rounded-lg">
+                  <div>Popover content</div>
+                </VIPopoverContent>
+              </VIPopover>
+              <VIDialog>
+                <VIDialogTrigger>helou dialog 333333</VIDialogTrigger>
+                <VIDialogContent backgroundClass="bg-green-200/20" asChild>
+                  <VIContainer size="xs" class="pt-64 p-4 rounded-lg">
+                    <VICardTitle>Dialog content 333333</VICardTitle>
+                    <VIPopover>
+                      <VIPopoverTrigger
+                        >helou popover inside dialog</VIPopoverTrigger
+                      >
+                      <VIPopoverContent class="p-4 rounded-lg">
+                        <div>Popover content</div>
+                      </VIPopoverContent>
+                    </VIPopover>
+                  </VIContainer>
+                </VIDialogContent>
+              </VIDialog>
+              <VIDialog></VIDialog>
+            </VIContainer>
+          </VIDialogContent>
+        </VIDialog>
+        <VIDialog>
+          <VIDialogTrigger>helou dialog 222222</VIDialogTrigger>
+          <VIDialogContent backgroundClass="bg-green-200/20" asChild>
+            <VIContainer size="xs" class="pt-64 p-4 rounded-lg">
+              <VICardTitle>Dialog content 222222</VICardTitle>
               <VIPopover>
                 <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
                 <VIPopoverContent class="p-4 rounded-lg">
