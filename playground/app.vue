@@ -6,9 +6,28 @@
       <VIContainer size="xs" class="p-4 rounded-lg">
         <VICardTitle>Dialog content zaklad</VICardTitle>
         <VIPopover>
-          <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
+          <VIPopoverTrigger>helou popover inside dialog1</VIPopoverTrigger>
           <VIPopoverContent class="p-4 rounded-lg">
-            <div>Popover content</div>
+            <VIPopover>
+              <VIPopoverTrigger>helou popover inside dialog2</VIPopoverTrigger>
+              <VIPopoverContent class="p-4 rounded-lg">
+                <VIPopover>
+                  <VIPopoverTrigger>
+                    helou popover inside dialog3
+                  </VIPopoverTrigger>
+                  <VIPopoverContent class="p-4 rounded-lg">
+                    <VIPopover>
+                      <VIPopoverTrigger>
+                        helou popover inside dialog4
+                      </VIPopoverTrigger>
+                      <VIPopoverContent class="p-4 rounded-lg">
+                        <div>Popover content</div>
+                      </VIPopoverContent>
+                    </VIPopover>
+                  </VIPopoverContent>
+                </VIPopover>
+              </VIPopoverContent>
+            </VIPopover>
           </VIPopoverContent>
         </VIPopover>
         <VIDialog>
