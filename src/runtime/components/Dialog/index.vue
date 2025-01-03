@@ -2,9 +2,9 @@
 import { onClickOutside, unrefElement } from '@vueuse/core'
 import type { ComputedRef, Ref, WritableComputedRef } from 'vue'
 import { computed, onUnmounted, ref, useId, watch } from 'vue'
+import { useContext } from '../../composables/useContext'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { createContext } from '../../utils/createContext'
-import { getEffectiveZIndex } from '../../utils/helpers'
+import { getEffectiveZIndex } from '../../utils/getEffectiveZIndex'
 
 export type DialogStates = (
   | { id: string; opened: boolean }
@@ -23,7 +23,7 @@ export type DialogContext = {
 }
 
 export const [injectDialogContext, provideDialogContext] =
-  createContext<DialogContext>('Dialog')
+  useContext<DialogContext>('Dialog')
 </script>
 
 <script lang="ts" setup>

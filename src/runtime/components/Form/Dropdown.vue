@@ -78,9 +78,10 @@
 import { useElementBounding } from '@vueuse/core'
 import type { ClassValue } from 'clsx'
 import { computed, useId, useTemplateRef } from 'vue'
-import type { OptionItem } from '../../../module'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { cn, searchObjectByFieldValues } from '../../utils/helpers'
+import type { OptionItem } from '../../types'
+import { cn } from '../../utils/cn'
+import { useSearch } from '../../utils/useSearch'
 import PopoverContent from '../Popover/Content.vue'
 import Popover from '../Popover/index.vue'
 import PopoverTrigger from '../Popover/Trigger.vue'
@@ -144,7 +145,10 @@ const search = useFallbackModel(props, 'search', emit)
 const filteredOptions = computed(() => {
   const baseOptions = !required ? [emptyOption, ...items] : items
   if (!search.value) return baseOptions
-  return searchObjectByFieldValues(baseOptions, search.value, ['name', 'id'])
+  return useSearch(baseOptions, search.value, {
+    id: true,
+    name: true,
+  })
 })
 
 const isActive = (option: OptionItem<T>) => option.id === selectedItem.value.id

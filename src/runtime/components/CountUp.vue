@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
 import { ref } from 'vue'
-import type { PrimitiveProps } from './../../module'
 import Primitive from './Primitive/index.vue'
+import type { PrimitiveProps } from '../types'
 
 const {
   number = 0,

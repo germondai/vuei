@@ -1,22 +1,8 @@
 import { readonly } from 'vue'
-import type { NotificationType } from '../../module'
+import type { Icon, NotificationType, Toast } from '../types'
 import { useState } from '#app'
 
-interface ToastIcon {
-  name: string
-  color?: string
-}
-
-export interface Toast {
-  id: string
-  title: string
-  message?: string
-  type?: NotificationType
-  duration?: number
-  icon?: ToastIcon
-}
-
-const ToastIcon: { [K in NotificationType]: ToastIcon } = {
+const ToastIcon: { [K in NotificationType]: Icon } = {
   INFO: { name: 'mdi:information', color: '#2196F3' },
   SUCCESS: { name: 'mdi:check-circle', color: '#4CAF50' },
   WARNING: { name: 'mdi:alert-circle', color: '#FFC107' },

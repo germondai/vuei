@@ -1,4 +1,4 @@
-// inspired by: https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/shared/createContext.ts
+// inspired by: https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/shared/useContext.ts
 
 import { type InjectionKey, inject, provide } from 'vue'
 
@@ -9,7 +9,7 @@ import { type InjectionKey, inject, provide } from 'vue'
  *
  * @param contextName The description for injection key symbol.
  */
-export function createContext<ContextValue extends object>(
+export function useContext<ContextValue extends object>(
   providerComponentName: string | string[],
   contextName?: string,
 ) {

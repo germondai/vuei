@@ -1,9 +1,9 @@
 <script lang="ts">
 import { onClickOutside } from '@vueuse/core'
 import { type Ref, type WritableComputedRef, ref } from 'vue'
-import type { PrimitiveProps } from '../../../module'
+import { useContext } from '../../composables/useContext'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { createContext } from '../../utils/createContext'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 
 export type AccordionContext = {
@@ -13,7 +13,7 @@ export type AccordionContext = {
 }
 
 export const [injectAccordionContext, provideAccordionContext] =
-  createContext<AccordionContext>('Accordion')
+  useContext<AccordionContext>('Accordion')
 </script>
 
 <script lang="ts" setup>

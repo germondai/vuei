@@ -17,9 +17,9 @@
 
 <script lang="ts" setup generic="T">
 import type { ClassValue } from 'clsx'
-import type { ButtonProps, OptionItem, PrimitiveProps } from '../../../module'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { cn } from '../../utils/helpers'
+import type { ButtonProps, OptionItem, PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import Button from '../Button/index.vue'
 import Primitive from '../Primitive/index.vue'
 

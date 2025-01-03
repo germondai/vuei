@@ -46,10 +46,10 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, useId } from 'vue'
-import type { PrimitiveProps } from '../../../module'
 import { useFallbackModel } from '../../composables/useFallbackModel'
 import { useValidate } from '../../composables/useValidate'
-import { cn } from '../../utils/helpers'
+import { cn } from '../../utils/cn'
+import type { PrimitiveProps } from '../../types'
 import FlareItem from '../Flare/Item.vue'
 import Primitive from '../Primitive/index.vue'
 

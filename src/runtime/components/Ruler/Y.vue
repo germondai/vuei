@@ -9,14 +9,14 @@
         (!left && !right)
       "
       :key
-      v-bind="rulerFlareAttrs"
       :class="key"
+      v-bind="flare && flare"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { rulerFlareAttrs } from '../../utils/data'
+import type { Flare } from '../../types'
 import FlareItem from '../Flare/Item.vue'
 
 const {
@@ -25,7 +25,7 @@ const {
   right = false,
   color = 'rgb(var(--color-primary-800))',
 } = defineProps<{
-  flare?: boolean
+  flare?: Flare
   left?: boolean
   right?: boolean
   color?: HTMLElement['style']['backgroundColor']

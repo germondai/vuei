@@ -249,7 +249,7 @@
 import type { OptionItem } from '../src/module'
 import { VICard } from '#components'
 
-const { addToast } = useToast()
+const { addToast } = VIuseToast()
 
 const items: OptionItem[] = [
   {

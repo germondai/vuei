@@ -36,8 +36,8 @@ import type {
   ButtonSizes,
   ButtonVariants,
   PrimitiveProps,
-} from '../../../module'
-import { cn } from '../../utils/helpers'
+} from '../../types'
+import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 import type { NuxtLinkProps } from '#app'
 import { Icon, NuxtLink } from '#components'

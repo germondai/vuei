@@ -21,8 +21,8 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from 'vue'
 import { injectDialogContext } from './index.vue'
-import type { PrimitiveProps } from '../../../module'
-import { cn } from '../../utils/helpers'
+import type { PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
 const baseClass: Record<'background' | 'content', string> = {

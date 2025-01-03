@@ -11,8 +11,8 @@
 
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import type { PrimitiveProps } from './../../module'
 import Primitive from './Primitive/index.vue'
+import type { PrimitiveProps } from '../types'
 
 const {
   typeArray,

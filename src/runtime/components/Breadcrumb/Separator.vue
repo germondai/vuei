@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { PrimitiveProps } from '../../../module'
-import { cn } from '../../utils/helpers'
+import { cn } from '../../utils/cn'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 import { Icon } from '#components'
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type ShallowRef, shallowRef } from 'vue'
-import type { PrimitiveProps } from '../../../module'
-import { createContext } from '../../utils/createContext'
+import { useContext } from '../../composables/useContext'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
@@ -11,7 +11,7 @@ export type AvatarContext = {
 }
 
 export const [injectAvatarContext, provideAvatarContext] =
-  createContext<AvatarContext>('Avatar')
+  useContext<AvatarContext>('Avatar')
 </script>
 
 <script lang="ts" setup>

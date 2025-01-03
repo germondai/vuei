@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { PrimitiveProps } from '../../../module'
 import { useToast } from '../../composables/useToast'
-import { cn } from '../../utils/helpers'
+import type { PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 import Toast from '../Toast/index.vue'
 

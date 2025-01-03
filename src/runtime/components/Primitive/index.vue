@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { Slot } from './Slot'
-import type { PrimitiveProps } from '../../../module'
+import type { PrimitiveProps } from '../../types'
 
 const SELF_CLOSING_TAGS = ['area', 'img', 'input']
 

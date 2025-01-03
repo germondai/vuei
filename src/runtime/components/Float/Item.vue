@@ -6,9 +6,9 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import type { PrimitiveProps } from '../../../module'
 import { useSharedMouseInElement } from '../../composables/useSharedMouseInElement'
-import { cn } from '../../utils/helpers'
+import { cn } from '../../utils/cn'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 
 const { velocity = 1, ...props } = defineProps<

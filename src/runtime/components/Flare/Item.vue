@@ -7,9 +7,9 @@
 <script lang="ts" setup>
 import { templateRef } from '@vueuse/core'
 import { computed } from 'vue'
-import type { Flare, PrimitiveProps } from '../../../module'
 import { useSharedMouseInElement } from '../../composables/useSharedMouseInElement'
-import { cn } from '../../utils/helpers'
+import type { Flare, PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
 const {

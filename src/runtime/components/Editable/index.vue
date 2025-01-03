@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { PrimitiveProps } from '../../../module'
 import { useFallbackModel } from '../../composables/useFallbackModel'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 
 const { allowed, as, asChild, ...props } = defineProps<

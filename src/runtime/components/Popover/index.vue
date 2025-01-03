@@ -8,8 +8,8 @@ import {
   ref,
   useId,
 } from 'vue'
+import { useContext } from '../../composables/useContext'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { createContext } from '../../utils/createContext'
 import { injectDialogContext } from '../Dialog/index.vue'
 
 export type PopoverStates = (
@@ -26,7 +26,7 @@ export type PopoverContext = {
 }
 
 export const [injectPopoverContext, providePopoverContext] =
-  createContext<PopoverContext>('Popover')
+  useContext<PopoverContext>('Popover')
 </script>
 
 <script lang="ts" setup>

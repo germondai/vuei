@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { injectAvatarContext } from './index.vue'
-import type { PrimitiveProps } from '../../../module'
+import type { PrimitiveProps } from '../../types'
 import Primitive from '../Primitive/index.vue'
 
 const { imageLoadingStatus } = injectAvatarContext()

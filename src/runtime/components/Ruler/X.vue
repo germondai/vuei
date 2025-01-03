@@ -6,7 +6,7 @@
     <div class="rx-bef" />
     <component
       :is="flare ? FlareItem : 'div'"
-      v-bind="rulerFlareAttrs"
+      v-bind="flare && flare"
       class="rx-mid"
     />
     <div class="rx-aft" />
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { rulerFlareAttrs } from '../../utils/data'
+import type { Flare } from '../../types'
 import FlareItem from '../Flare/Item.vue'
 
 const {
@@ -22,7 +22,7 @@ const {
   rulerColor = 'rgb(var(--color-primary-800))',
   crossColor = 'rgb(var(--color-primary-700))',
 } = defineProps<{
-  flare?: boolean
+  flare?: Flare
   rulerColor?: HTMLElement['style']['backgroundColor']
   crossColor?: HTMLElement['style']['backgroundColor']
 }>()

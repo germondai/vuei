@@ -7,10 +7,10 @@
 <script lang="ts" setup>
 import { templateRef } from '@vueuse/core'
 import { computed } from 'vue'
-import type { PrimitiveProps } from './../../module'
-import { cn } from './../utils/helpers'
 import Primitive from './Primitive/index.vue'
 import { useSharedMouseInElement } from '../composables/useSharedMouseInElement'
+import type { PrimitiveProps } from '../types'
+import { cn } from '../utils/cn'
 
 const baseClass = 'HoloTilt'
 
