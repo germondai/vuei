@@ -13,8 +13,8 @@
  * adds no functional value and can be omitted.
  */
 
-import { cn } from '../../utils/cn'
 import type { PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
 const { ...props } = defineProps<{} & PrimitiveProps>()

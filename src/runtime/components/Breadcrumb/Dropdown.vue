@@ -22,8 +22,8 @@
 
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
-import { cn } from '../../utils/cn'
 import type { PrimitiveProps } from '../../types'
+import { cn } from '../../utils/cn'
 import PopoverContent from '../Popover/Content.vue'
 import Popover from '../Popover/index.vue'
 import PopoverTrigger from '../Popover/Trigger.vue'
