@@ -6,7 +6,7 @@
     <div class="rx-bef" />
     <component
       :is="flare ? FlareItem : 'div'"
-      v-bind="flare && flare"
+      v-bind="typeof flare === 'object' ? flare : {}"
       class="rx-mid"
     />
     <div class="rx-aft" />

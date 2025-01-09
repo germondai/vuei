@@ -10,7 +10,7 @@
       "
       :key
       :class="key"
-      v-bind="flare && flare"
+      v-bind="typeof flare === 'object' ? flare : {}"
     />
   </div>
 </template>
