@@ -180,6 +180,8 @@
   <VIRulerX />
   <VIRulerY />
   <VIContainer>
+    <VIRulerX flare />
+    <VIRulerY flare />
     <VIHoloTilt>
       <VIFlareItem class="m-4 p-0.5 rounded-lg">
         <VIEditable

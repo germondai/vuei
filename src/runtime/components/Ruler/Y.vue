@@ -25,7 +25,7 @@ const {
   right = false,
   color = 'rgb(var(--color-primary-800))',
 } = defineProps<{
-  flare?: Flare
+  flare?: true | Flare
   left?: boolean
   right?: boolean
   color?: HTMLElement['style']['backgroundColor']

@@ -22,7 +22,7 @@ const {
   rulerColor = 'rgb(var(--color-primary-800))',
   crossColor = 'rgb(var(--color-primary-700))',
 } = defineProps<{
-  flare?: Flare
+  flare?: true | Flare
   rulerColor?: HTMLElement['style']['backgroundColor']
   crossColor?: HTMLElement['style']['backgroundColor']
 }>()

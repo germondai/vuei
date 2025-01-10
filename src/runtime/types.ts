@@ -74,7 +74,7 @@ interface FlareOpts {
   size?: number
 }
 
-export type Flare = boolean | FlareOpts
+export type Flare = FlareOpts | false
 
 export type HTMLTag =
   | 'a'
