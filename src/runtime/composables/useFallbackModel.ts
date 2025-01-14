@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, ref, unref, watch } from 'vue'
+import { computed, getCurrentInstance, shallowRef, unref, watch } from 'vue'
 
 type FallbackFn<P extends object, K extends keyof P> = (value: P[K]) => P[K]
 
@@ -27,22 +27,25 @@ export const useFallbackModel = <
   if (!key) key = 'modelValue' as K
   const event = `update:${key.toString()}`
 
-  const fb = computed(() =>
+  const resolvedFallback = computed(() =>
     fallback !== undefined && typeof fallback === 'function'
       ? (fallback as FallbackFn<P, K>)(props[key])
       : fallback || props[key],
   )
 
-  const fallbackValue = ref<P[K]>(fb.value)
+  const fallbackRef = shallowRef<P[K]>(resolvedFallback.value)
 
-  watch(fb, (v) => (fallbackValue.value = v), { deep })
-
-  return computed({
-    get: () => unref(fallbackValue),
-    set: (v: P[K]) => {
-      _emit(event, v)
-      fallbackValue.value = v
-      if (onUpdate) onUpdate(v, fallbackValue.value)
+  const model = computed({
+    get: () => unref(fallbackRef),
+    set: (newValue: P[K]) => {
+      const oldValue = unref(fallbackRef)
+      _emit(event, newValue)
+      fallbackRef.value = newValue
+      onUpdate?.(newValue, oldValue)
     },
   })
+
+  watch(resolvedFallback, (v) => (model.value = v), { deep })
+
+  return model
 }
