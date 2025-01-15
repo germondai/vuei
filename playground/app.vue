@@ -243,15 +243,55 @@
         </VIEditable>
       </VIFlareItem>
     </VIHoloTilt>
+    <form class="form" @submit.prevent="onSubmit(text)">
+      <VIFormField
+        v-model="text"
+        type="text"
+        class="bg-primary-950"
+        :schema="schemaObj.shape.field"
+      >
+        Field
+      </VIFormField>
+    </form>
   </VIContainer>
   <VIToastList />
 </template>
 
 <script lang="ts" setup>
+import { z } from 'zod'
 import type { OptionItem } from '../src/module'
 import { VICard } from '#components'
 
 const { addToast } = VIuseToast()
+
+const schema = z.string().min(4, 'min 4').max(10, 'max 10')
+const schemaObj = z.object({
+  field: z
+    .string()
+    .min(4, 'min 4')
+    .max(10, 'max 10')
+    .email('not email')
+    .optional(),
+})
+
+const text = ref<string>('')
+
+const onSubmit = (val: string) => {
+  const parsed = schema.safeParse(val)
+
+  const field = schemaObj.shape.field
+
+  if (field instanceof z.ZodType) console.log('jsem zod')
+  console.log(field)
+
+  parsed.error?.issues.forEach((issue) => {
+    addToast({
+      title: 'Error',
+      message: issue.message,
+      icon: { name: 'mdi:alert', color: 'red' },
+    })
+  })
+}
 
 const items: OptionItem[] = [
   {

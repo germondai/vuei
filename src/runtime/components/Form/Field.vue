@@ -16,7 +16,7 @@
         :id="$attrs.id?.toString() || id"
         v-model="value"
         :placeholder="$attrs.placeholder?.toString() || ''"
-        :required="specs ? !specs.optional : $attrs.required === ''"
+        :required="schema ? !schema.isOptional() : $attrs.required === ''"
         @input="validate"
         @blur="validate"
       />
@@ -27,12 +27,12 @@
         v-model="value"
         :type
         :placeholder="$attrs.placeholder?.toString() || ''"
-        :required="specs ? !specs.optional : $attrs.required === ''"
+        :required="schema ? !schema.isOptional() : $attrs.required === ''"
         @input="validate"
         @blur="validate"
       />
       <label v-if="label" :for="$attrs.id?.toString() || id">
-        <slot />
+        <slot />{{ 'required?: ' + !schema?.isOptional() }}
       </label>
     </component>
     <ul v-if="errors.length > 0">
@@ -46,8 +46,9 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, useId } from 'vue'
+import type { z } from 'zod'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { useValidate } from '../../composables/useValidate'
+import { useValidateField } from '../../composables/useValidateField'
 import type { PrimitiveProps } from '../../types'
 import { cn } from '../../utils/cn'
 import FlareItem from '../Flare/Item.vue'
@@ -74,7 +75,7 @@ const {
 } = defineProps<{
   modelValue?: MV
   flare?: boolean
-  schema?: object
+  schema?: z.ZodType
   type?: InputHTMLAttributes['type'] | 'textarea'
   label?: boolean
   wrapper?: PrimitiveElProp
@@ -85,7 +86,5 @@ const emit = defineEmits<{ (e: 'update:modelValue', value?: MV): void }>()
 
 const value = useFallbackModel(props, 'modelValue', emit)
 
-const { validateField } = useValidate()
-
-const { validate, errors, specs } = validateField(schema, value)
+const { validate, errors } = useValidateField(schema, value)
 </script>

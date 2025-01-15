@@ -95,9 +95,10 @@ export default defineNuxtModule<ModuleOptions>({
     const imports = {
       composables: [
         'useToast',
-        'useSharedMouseInElement',
-        'useFallbackModel',
         'useContext',
+        'useFallbackModel',
+        'useValidateField',
+        'useSharedMouseInElement',
       ],
       utils: ['cn', 'useSearch', 'useSearchScore'],
     }
