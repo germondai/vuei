@@ -17,6 +17,7 @@
         v-model="value"
         :placeholder="$attrs.placeholder?.toString() || ''"
         :required="schema ? !schema.isOptional() : $attrs.required === ''"
+        @checked="validate"
         @input="validate"
         @blur="validate"
       />
@@ -28,11 +29,12 @@
         :type
         :placeholder="$attrs.placeholder?.toString() || ''"
         :required="schema ? !schema.isOptional() : $attrs.required === ''"
+        @checked="validate"
         @input="validate"
         @blur="validate"
       />
       <label v-if="label" :for="$attrs.id?.toString() || id">
-        <slot />{{ 'required?: ' + !schema?.isOptional() }}
+        <slot />
       </label>
     </component>
     <ul v-if="errors.length > 0">
@@ -46,6 +48,7 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, useId } from 'vue'
+import { watch } from 'vue'
 import type { z } from 'zod'
 import { useFallbackModel } from '../../composables/useFallbackModel'
 import { useValidateField } from '../../composables/useValidateField'
@@ -82,9 +85,14 @@ const {
   field?: PrimitiveElProp
 }>()
 
-const emit = defineEmits<{ (e: 'update:modelValue', value?: MV): void }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value?: MV): void
+  (e: 'error', value: string[]): void
+}>()
 
 const value = useFallbackModel(props, 'modelValue', emit)
 
 const { validate, errors } = useValidateField(schema, value)
+
+watch(errors, () => errors.value.length > 0 && emit('error', errors.value))
 </script>
