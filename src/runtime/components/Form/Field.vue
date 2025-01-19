@@ -47,11 +47,9 @@
 
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
-import { type InputHTMLAttributes, useId } from 'vue'
-import { watch } from 'vue'
+import { type InputHTMLAttributes, shallowRef, unref, useId, watch } from 'vue'
 import type { z } from 'zod'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import { useValidateField } from '../../composables/useValidateField'
 import type { PrimitiveProps } from '../../types'
 import { cn } from '../../utils/cn'
 import FlareItem from '../Flare/Item.vue'
@@ -92,7 +90,14 @@ const emit = defineEmits<{
 
 const value = useFallbackModel(props, 'modelValue', emit)
 
-const { validate, errors } = useValidateField(schema, value)
+const errors = shallowRef<string[]>([])
+
+const validate = () => {
+  if (!schema) return
+  const { error } = schema.safeParse(unref(value))
+  if (!error) return (errors.value = [])
+  errors.value = error.errors.map((e) => e.message)
+}
 
 watch(errors, () => errors.value.length > 0 && emit('error', errors.value))
 </script>
