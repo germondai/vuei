@@ -48,7 +48,7 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, shallowRef, unref, useId, watch } from 'vue'
-import type { z } from 'zod'
+import type { ZodType } from 'zod'
 import { useFallbackModel } from '../../composables/useFallbackModel'
 import type { PrimitiveProps } from '../../types'
 import { cn } from '../../utils/cn'
@@ -76,7 +76,7 @@ const {
 } = defineProps<{
   modelValue?: MV
   flare?: boolean
-  schema?: z.ZodType
+  schema?: ZodType
   type?: InputHTMLAttributes['type'] | 'textarea'
   label?: boolean
   wrapper?: PrimitiveElProp
