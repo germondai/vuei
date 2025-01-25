@@ -243,6 +243,7 @@
         </VIEditable>
       </VIFlareItem>
     </VIHoloTilt>
+    <VIButton @click="addT">add toast</VIButton>
     <form class="form" @submit.prevent="onSubmit(text)">
       <VIFormField
         v-model="text"
@@ -263,6 +264,13 @@ import type { OptionItem } from '../src/module'
 import { VICard } from '#components'
 
 const { addToast } = VIuseToast()
+
+const addT = () =>
+  addToast({
+    title: 'Hello',
+    message: 'World',
+    icon: { name: 'mdi:earth', color: 'blue' },
+  })
 
 const schema = z.string().min(4, 'min 4').max(10, 'max 10')
 const schemaObj = z.object({

@@ -66,6 +66,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     await installModule('@nuxt/icon')
     await installModule('@nuxt/image')
+    await installModule('@vueuse/motion/nuxt')
     await installModule(
       '@nuxtjs/tailwindcss',
       defu(

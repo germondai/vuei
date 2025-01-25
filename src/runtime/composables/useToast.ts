@@ -19,9 +19,7 @@ export const useToast = () => {
   }
 
   const addToast = (toast: Omit<Toast, 'id'>) => {
-    const id =
-      Math.random().toString(36).substr(2, 9) +
-      new Date().getTime().toString(36)
+    const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 11)}`
 
     const type = toast.type || 'INFO'
     const icon = toast.icon || ToastIcon[type]
@@ -29,15 +27,15 @@ export const useToast = () => {
 
     toasts.value.push({ ...toast, id, type, icon, duration })
 
-    if (duration !== 0)
-      setTimeout(() => {
-        removeToast(id)
-      }, duration)
+    if (duration !== 0) setTimeout(() => removeToast(id), duration)
   }
+
+  const clearToasts = () => (toasts.value = [])
 
   return {
     toasts: readonly(toasts),
     removeToast,
     addToast,
+    clearToasts,
   }
 }

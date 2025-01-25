@@ -15,12 +15,12 @@
         {{ toast.message }}
       </p>
     </div>
-    <button
-      class="absolute top-2 right-2 p-0.5 flex items-center justify-center rounded-lg shdw bg-primary-900/10 hover:bg-primary-900/20 transition-colors"
-      @click="emit('remove', toast.id)"
-    >
-      <Icon name="mdi:close" class="size-4 sm:size-6" />
-    </button>
+    <ToastButton
+      v-if="removeable"
+      class="group-hover/ToastItem:opacity-100 opacity-0 absolute -top-2 -left-2"
+      icon="mdi:close"
+      @click.stop="emit('remove', toast.id)"
+    />
   </Primitive>
 </template>
 
@@ -28,12 +28,17 @@
 import type { PrimitiveProps, Toast } from '../../types'
 import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
+import ToastButton from '../Toast/Button.vue'
 import { Icon } from '#components'
 
 const baseClass =
-  'relative w-full max-w-sm p-2 flex items-center gap-2 rounded-lg bg-primary-900/5 backdrop-blur pointer-events-auto overflow-hidden shdw'
+  'group/ToastItem relative w-full max-w-sm p-2 flex items-center gap-2 rounded-2xl bg-primary-900/5 backdrop-blur pointer-events-auto shdw'
 
-const { toast, ...props } = defineProps<{ toast: Toast } & PrimitiveProps>()
+const {
+  toast,
+  removeable = true,
+  ...props
+} = defineProps<{ toast: Toast; removeable?: boolean } & PrimitiveProps>()
 
 const emit = defineEmits<{ (e: 'remove', id: Toast['id']): void }>()
 </script>
