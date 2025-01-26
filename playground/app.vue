@@ -243,6 +243,7 @@
         </VIEditable>
       </VIFlareItem>
     </VIHoloTilt>
+    <VITagList edit />
     <VIButton @click="addT">add toast</VIButton>
     <form class="form" @submit.prevent="onSubmit(text)">
       <VIFormField

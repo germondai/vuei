@@ -213,3 +213,5 @@ export interface Toast {
   duration?: number
   icon?: Icon
 }
+
+export type Tag = { name: string } | string
