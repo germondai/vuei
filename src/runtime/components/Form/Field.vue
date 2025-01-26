@@ -17,9 +17,7 @@
         v-model="value"
         :placeholder="$attrs.placeholder?.toString() || ''"
         :required="schema ? !schema.isOptional() : $attrs.required === ''"
-        @checked="validate"
-        @input="validate"
-        @blur="validate"
+        @focusout="validate"
       />
       <input
         v-else
@@ -29,9 +27,7 @@
         :type
         :placeholder="$attrs.placeholder?.toString() || ''"
         :required="schema ? !schema.isOptional() : $attrs.required === ''"
-        @checked="validate"
-        @input="validate"
-        @blur="validate"
+        @focusout="validate"
       />
       <label v-if="label" :for="$attrs.id?.toString() || id">
         <slot />
@@ -88,7 +84,9 @@ const emit = defineEmits<{
   (e: 'error', value: string[]): void
 }>()
 
-const value = useFallbackModel(props, 'modelValue', emit)
+const value = useFallbackModel(props, 'modelValue', emit, {
+  onUpdate: () => validate(),
+})
 
 const errors = shallowRef<string[]>([])
 
