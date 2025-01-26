@@ -1,4 +1,11 @@
-import { computed, getCurrentInstance, shallowRef, unref, watch } from 'vue'
+import {
+  computed,
+  getCurrentInstance,
+  ref,
+  shallowRef,
+  unref,
+  watch,
+} from 'vue'
 
 /**
  * A composable for creating a model with a fallback value. This is useful for managing reactive state
@@ -80,7 +87,9 @@ export const useFallbackModel = <
       : fallback || props[key],
   )
 
-  const fallbackRef = shallowRef<P[K]>(resolvedFallback.value)
+  const fallbackRef = deep
+    ? ref<P[K]>(resolvedFallback.value)
+    : shallowRef<P[K]>(resolvedFallback.value)
 
   const model = computed({
     get: () => unref(fallbackRef),
