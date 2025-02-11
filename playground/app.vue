@@ -252,7 +252,9 @@
         class="bg-primary-950"
         :schema="schemaObj.shape.field"
       >
-        Field
+        Hello from <b>label</b>
+        <template #wrapper>Hello from <b>wrapper</b></template>
+        <template #field>Hello from <b>field</b></template>
       </VIFormField>
     </form>
   </VIContainer>

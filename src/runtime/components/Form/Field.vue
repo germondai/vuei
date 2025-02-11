@@ -4,12 +4,14 @@
     :asChild="wrapper?.asChild"
     :class="cn(wrapper?.class)"
   >
+    <slot name="wrapper" />
     <component
       :is="flare ? FlareItem : Primitive"
       :as="field?.as"
       :asChild="field?.asChild"
       :class="cn('field rounded-lg', field?.class)"
     >
+      <slot name="field" />
       <textarea
         v-if="type === 'textarea' && typeof value !== 'boolean'"
         v-bind="$attrs"
