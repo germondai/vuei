@@ -196,6 +196,10 @@ export interface PrimitiveProps {
   asChild?: boolean
 }
 
+export interface TriggerProps {
+  disabled?: boolean
+}
+
 export type SelectFields<T extends object> = {
   [K in keyof T]?: T[K] extends object ? SelectFields<T[K]> : boolean
 }

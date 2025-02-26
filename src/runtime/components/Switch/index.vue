@@ -3,7 +3,7 @@
     :as
     :asChild
     :class="cn(baseClass.root, { 'bg-primary-800': checked })"
-    @click="checked = !checked"
+    @click="!disabled && (checked = !checked)"
   >
     <span
       :class="cn(baseClass.thumb, thumbClass, { 'translate-x-6': checked })"
@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'clsx'
 import { useFallbackModel } from '../../composables/useFallbackModel'
-import type { PrimitiveProps } from '../../types'
+import type { PrimitiveProps, TriggerProps } from '../../types'
 import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
@@ -25,12 +25,13 @@ const baseClass: Record<'root' | 'thumb', ClassValue> = {
 }
 
 const {
+  disabled,
   thumbClass,
   as = 'button',
   asChild,
   ...props
 } = defineProps<
-  { checked?: boolean; thumbClass?: ClassValue } & PrimitiveProps
+  { checked?: boolean; thumbClass?: ClassValue } & TriggerProps & PrimitiveProps
 >()
 
 const emit = defineEmits<{ (e: 'update:checked', value: boolean): void }>()

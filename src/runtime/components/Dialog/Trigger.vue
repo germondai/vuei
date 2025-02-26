@@ -3,7 +3,7 @@
     ref="trigger"
     v-bind="props"
     :class="cn(baseClass)"
-    @click="opened = !opened"
+    @click="!disabled && (opened = !opened)"
   >
     <slot />
   </Primitive>
@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import { injectDialogContext } from './index.vue'
-import type { PrimitiveProps } from '../../types'
+import type { PrimitiveProps, TriggerProps } from '../../types'
 import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
@@ -19,5 +19,5 @@ const baseClass = 'cursor-pointer'
 
 const { opened, trigger } = injectDialogContext()
 
-const { ...props } = defineProps<{} & PrimitiveProps>()
+const { disabled, ...props } = defineProps<{} & TriggerProps & PrimitiveProps>()
 </script>

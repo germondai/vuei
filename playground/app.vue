@@ -34,6 +34,8 @@
           <VIDialogTrigger>helou dialog 11111</VIDialogTrigger>
           <VIDialogContent backgroundClass="bg-green-200/20" asChild>
             <VIContainer size="xs" class="pt-64 p-4 rounded-lg">
+              <VIDialogTrigger>close it</VIDialogTrigger>
+              <VIDialogTrigger disabled>disabled close</VIDialogTrigger>
               <VICardTitle>Dialog content 11111</VICardTitle>
               <VIPopover>
                 <VIPopoverTrigger>helou popover inside dialog</VIPopoverTrigger>
