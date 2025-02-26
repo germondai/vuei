@@ -1,6 +1,6 @@
 {
   "name": "@vuei/nuxt",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "Innovative Vue UI Library",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write --list-different .",
+    "fmt": "bun lint:fix && bun prettier:fix",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
