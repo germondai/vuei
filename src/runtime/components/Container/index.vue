@@ -12,7 +12,7 @@ import { cn } from '../../utils/cn'
 import Primitive from '../Primitive/index.vue'
 
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-type ContainerMode = 'base' | 'max'
+type ContainerMode = 'base' | 'max' | 'both'
 
 const {
   size = 'lg',
@@ -57,6 +57,8 @@ sizes.xl = {
 }
 
 const sizeClass = computed(() =>
-  mode === 'max' ? sizes[size]?.max : [sizes[size]?.base, sizes[size]?.max],
+  mode === 'base' || mode === 'max'
+    ? sizes[size]?.[mode]
+    : [sizes[size]?.base, sizes[size]?.max],
 )
 </script>
