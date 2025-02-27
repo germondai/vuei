@@ -251,13 +251,14 @@
       <VIFormField
         v-model="text"
         type="text"
-        class="bg-primary-950"
+        class="bg-primary-950 shdw"
         :schema="schemaObj.shape.field"
       >
         Hello from <b>label</b>
         <template #wrapper>Hello from <b>wrapper</b></template>
         <template #field>Hello from <b>field</b></template>
       </VIFormField>
+      <VIFormField type="number" class="bg-primary-950 shdw" />
     </form>
   </VIContainer>
   <VIToastList />

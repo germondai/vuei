@@ -43,7 +43,11 @@
   </Primitive>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup
+  generic="T extends InputHTMLAttributes['type'] | 'textarea'"
+>
 import type { ClassValue } from 'clsx'
 import { type InputHTMLAttributes, shallowRef, unref, useId, watch } from 'vue'
 import type { ZodType } from 'zod'
@@ -57,7 +61,7 @@ interface PrimitiveElProp extends PrimitiveProps {
   class?: ClassValue
 }
 
-type MV = string | number | boolean | null
+type MV = T extends 'checkbox' ? boolean : string | number | null
 
 defineOptions({ inheritAttrs: false })
 
@@ -75,7 +79,7 @@ const {
   modelValue?: MV
   flare?: boolean
   schema?: ZodType
-  type?: InputHTMLAttributes['type'] | 'textarea'
+  type?: T
   label?: boolean
   wrapper?: PrimitiveElProp
   field?: PrimitiveElProp
