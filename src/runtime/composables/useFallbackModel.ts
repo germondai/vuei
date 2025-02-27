@@ -82,9 +82,11 @@ export const useFallbackModel = <
   const event = `update:${key.toString()}`
 
   const resolvedFallback = computed(() =>
-    fallback !== undefined && typeof fallback === 'function'
-      ? (fallback as (value: P[K]) => P[K])(props[key])
-      : fallback || props[key],
+    props[key] != null
+      ? props[key]
+      : fallback != null && typeof fallback === 'function'
+        ? (fallback as (value: P[K]) => P[K])(props[key])
+        : (fallback as P[K]),
   )
 
   const fallbackRef = deep
