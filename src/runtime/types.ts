@@ -1,3 +1,4 @@
+import type { MimeType } from '@uploadthing/mime-types'
 import type { Component } from 'vue'
 
 export type Screen =
@@ -219,3 +220,14 @@ export interface Toast {
 }
 
 export type Tag = { name: string } | string
+
+export type UploadProps = {
+  multiple?: boolean
+  maxSize?: number
+  maxFiles?: number
+  dropMessage?: string
+  selectMessage?: string
+  acceptTypes?: MimeType[]
+}
+
+export type UploadError = Omit<Toast, 'id'>

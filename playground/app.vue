@@ -158,6 +158,13 @@
     <VIButton variant="outline" size="icon" icon="mdi:account" />
     <VIButton variant="outline" size="xl" icon="mdi:account" />
   </VIContainer>
+  <VIContainer>
+    <VIUploadList
+      :acceptTypes="['image/png', 'video/webm']"
+      multiple
+      @error="addToast"
+    />
+  </VIContainer>
   <VIContainer class="flex flex-col gap-2">
     <VIProgress :progress="50" />
     <VISeparator />
