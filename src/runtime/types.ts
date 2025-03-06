@@ -201,8 +201,15 @@ export interface TriggerProps {
   disabled?: boolean
 }
 
-export type SelectFields<T extends object> = {
-  [K in keyof T]?: T[K] extends object ? SelectFields<T[K]> : boolean
+export type SelectFields<T> =
+  T extends Array<infer U>
+    ? SelectFields<U>
+    : T extends object
+      ? { [K in keyof T]?: SelectFields<T[K]> }
+      : boolean
+
+export type useSearchOptions = {
+  caseSensitive?: boolean
 }
 
 export interface Icon {
