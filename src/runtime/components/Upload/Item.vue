@@ -13,14 +13,14 @@
       <img
         v-if="isSupportedDisplayableMedia(file.type, { image: true })"
         :src="previewImage(file)"
-        class="size-12 rounded-lg object-cover"
+        class="min-w-12 size-12 rounded-lg object-cover"
       />
       <Icon
         v-else-if="isSupportedDisplayableMedia(file.type, { video: true })"
         name="mdi:video"
-        class="size-12"
+        class="min-w-12 size-12"
       />
-      <Icon v-else name="mdi:file" class="size-12" />
+      <Icon v-else name="mdi:file" class="min-w-12 size-12" />
       <span
         class="w-full flex items-center justify-between gap-2 text-primary-300"
       >

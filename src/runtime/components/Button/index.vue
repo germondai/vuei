@@ -79,13 +79,13 @@ const sizes: Record<'button' | 'icon', Record<ButtonSizes, string>> = {
     '2xl': 'px-10 py-5 rounded-3xl text-2xl',
   },
   icon: {
-    icon: 'size-5',
-    xs: 'size-3',
-    sm: 'size-4',
-    md: 'size-5',
-    lg: 'size-6',
-    xl: 'size-7',
-    '2xl': 'size-8',
+    icon: 'min-w-5 size-5',
+    xs: 'min-w-3 size-3',
+    sm: 'min-w-4 size-4',
+    md: 'min-w-5 size-5',
+    lg: 'min-w-6 size-6',
+    xl: 'min-w-7 size-7',
+    '2xl': 'min-w-8 size-8',
   },
 }
 

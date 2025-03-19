@@ -6,7 +6,11 @@
       :class="cn(baseClass.trigger, triggerClass)"
     >
       <slot name="trigger">
-        <span v-for="key in 3" :key class="size-1 bg-primary-50 rounded-full" />
+        <span
+          v-for="key in 3"
+          :key
+          class="min-w-1 size-1 bg-primary-50 rounded-full"
+        />
       </slot>
     </PopoverTrigger>
     <PopoverContent

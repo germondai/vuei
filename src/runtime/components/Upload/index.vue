@@ -16,7 +16,7 @@
       @change="handleFileSelect"
     />
     <div class="flex flex-col items-center justify-center gap-2">
-      <Icon name="mdi:upload" class="size-16" />
+      <Icon name="mdi:upload" class="min-w-16 size-16" />
       <CardDescription v-if="dropMessage || selectMessage">
         {{ dragOver ? dropMessage : selectMessage }}
       </CardDescription>

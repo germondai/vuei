@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div class="flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
-        <Icon name="mdi:calendar-month-outline" class="mx-4 size-10" />
+        <Icon name="mdi:calendar-month-outline" class="mx-4 min-w-10 size-10" />
         <div class="flex flex-col items-start leading-snug">
           <b>
             {{ today.toLocaleDateString(locale, { month: 'long' }) }}

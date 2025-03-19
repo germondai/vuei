@@ -16,7 +16,7 @@ const { as = NuxtImg, asChild, ...props } = defineProps<{} & PrimitiveProps>()
     :asChild
     v-bind="props"
     role="img"
-    class="size-full rounded-[inherit] object-cover"
+    class="min-w-full size-full rounded-[inherit] object-cover"
     @load="imageLoadingStatus = 'loaded'"
     @error="imageLoadingStatus = 'error'"
   >

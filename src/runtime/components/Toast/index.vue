@@ -4,7 +4,7 @@
       v-if="toast.icon"
       :name="toast.icon.name"
       :style="{ color: toast.icon.color }"
-      class="size-6 sm:size-8"
+      class="min-w-6 size-6 sm:min-w-8 sm:size-8"
     />
     <div class="w-full flex flex-col overflow-hidden">
       <b class="sm:test-xl">{{ toast.title }}</b>

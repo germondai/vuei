@@ -11,14 +11,14 @@
           <Icon
             v-if="selectedItem.icon"
             :name="selectedItem.icon"
-            class="size-6"
+            class="min-w-6 size-6"
           />
           {{ selectedItem.name }}
         </span>
         <span
           class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
         >
-          <Icon name="ph:caret-up-down-fill" class="size-6" />
+          <Icon name="ph:caret-up-down-fill" class="min-w-6 size-6" />
         </span>
       </button>
     </PopoverTrigger>
@@ -31,7 +31,7 @@
         class="relative flex items-center border-b-[1px] border-primary-800"
       >
         <label :for="id" class="absolute px-2 flex items-center cursor-pointer">
-          <Icon name="mdi:magnify" class="size-6" />
+          <Icon name="mdi:magnify" class="min-w-6 size-6" />
         </label>
         <input
           :id="id"
@@ -63,7 +63,7 @@
           "
           @click="selectedItem = opt"
         >
-          <Icon v-if="opt.icon" :name="opt.icon" class="size-6" />
+          <Icon v-if="opt.icon" :name="opt.icon" class="min-w-6 size-6" />
           {{ opt.name }}
         </div>
         <div v-if="!filteredOptions.length" class="p-4 opacity-60">

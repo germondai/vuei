@@ -25,7 +25,7 @@ provideAvatarContext({
 <template>
   <Primitive
     v-bind="props"
-    class="size-10 flex items-center justify-center rounded-full bg-primary-700 overflow-hidden"
+    class="min-w-10 size-10 flex items-center justify-center rounded-full bg-primary-700 overflow-hidden"
   >
     <slot />
   </Primitive>
