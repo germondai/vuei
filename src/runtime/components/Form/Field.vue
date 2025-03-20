@@ -61,7 +61,11 @@ interface PrimitiveElProp extends PrimitiveProps {
   class?: ClassValue
 }
 
-type MV = T extends 'checkbox' ? boolean : string | number | null
+type MV = T extends 'datetime-local' | 'date'
+  ? Date
+  : T extends 'checkbox'
+    ? boolean
+    : string | number | null
 
 defineOptions({ inheritAttrs: false })
 
